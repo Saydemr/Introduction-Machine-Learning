@@ -10,7 +10,7 @@ def read_csv_file(file_name):
         csv_reader = csv.reader(csv_file)
         next(csv_reader)
         for item in list(csv_reader):
-            my_dict = { 'value': int(item[0]), 'class': int(item[1]) , 'prediction' : -1 }
+            my_dict = { 'value': int(item[0]), 'class': int(item[1]) , 'prediction_zero_one' : -1, 'prediction_reject' : -1}
             numbers.append(my_dict)
     return numbers
 
@@ -107,20 +107,32 @@ posterior_threes    = [prior_class_3 * likelihoods_class_3[i] / (likelihoods_cla
 for i in range(len(numbers)):
 
     if posterior_ones[i] > posterior_twos[i] and posterior_ones[i] > posterior_threes[i]:
-        numbers[i]['prediction'] = 1
+        numbers[i]['prediction_zero_one'] = 1
     elif posterior_twos[i] > posterior_ones[i] and posterior_twos[i] > posterior_threes[i]:
-        numbers[i]['prediction'] = 2
+        numbers[i]['prediction_zero_one'] = 2
     elif posterior_threes[i] > posterior_ones[i] and posterior_threes[i] > posterior_twos[i]:
-        numbers[i]['prediction'] = 3
+        numbers[i]['prediction_zero_one'] = 3
+
+    if posterior_ones[i] > 0.75:
+        numbers[i]['prediction_reject'] = 1
+    elif posterior_twos[i] > 0.75:
+        numbers[i]['prediction_reject'] = 2
+    elif posterior_threes[i] > 0.75:
+        numbers[i]['prediction_reject'] = 3
+    else :
+        numbers[i]['prediction_reject'] = 4
 
 
 confusion_matrix = [[0,0,0],[0,0,0],[0,0,0]]
+confusion_matrix_r = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
 for item in numbers:
-    confusion_matrix[item['class']-1][item['prediction']-1] += 1
+    confusion_matrix[item['prediction_zero_one']-1][item['class']-1] += 1
+    confusion_matrix_r[item['prediction_reject']-1][item['class']-1] += 1
 
-print(*confusion_matrix, sep='\n', end='\n\n')
+print("Confusion Matrix Training 0-1",*confusion_matrix, sep='\n', end='\n\n')
+print("Confusion Matrix Training Reject",*confusion_matrix_r, sep='\n', end='\n\n')
 
-print(*numbers, sep = "\n")
+
 
 test_list = read_csv_file("testing.csv")
 
@@ -134,14 +146,31 @@ posterior_threes_test    = [prior_class_3 * likelihoods_class_3_test[i] / (likel
 
 for i in range(len(test_list)):
     if posterior_ones_test[i] > posterior_twos_test[i] and posterior_ones_test[i] > posterior_threes_test[i]:
-        test_list[i]['prediction'] = 1
+        test_list[i]['prediction_zero_one'] = 1
     elif posterior_twos_test[i] > posterior_ones_test[i] and posterior_twos_test[i] > posterior_threes_test[i]:
-        test_list[i]['prediction'] = 2
+        test_list[i]['prediction_zero_one'] = 2
     elif posterior_threes_test[i] > posterior_ones_test[i] and posterior_threes_test[i] > posterior_twos_test[i]:
-        test_list[i]['prediction'] = 3
+        test_list[i]['prediction_zero_one'] = 3
+
+    if posterior_ones_test[i] > 0.75:
+        test_list[i]['prediction_reject'] = 1
+    elif posterior_twos_test[i] > 0.75:
+        test_list[i]['prediction_reject'] = 2
+    elif posterior_threes_test[i] > 0.75:
+        test_list[i]['prediction_reject'] = 3
+    else :
+        test_list[i]['prediction_reject'] = 4
+
+
 
 confusion_matrix_test = [[0,0,0],[0,0,0],[0,0,0]]
-for item in test_list:
-    confusion_matrix_test[item['class']-1][item['prediction']-1] += 1
+confusion_matrix_test_r = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
 
-print(*confusion_matrix_test, sep='\n')
+for item in test_list:
+    confusion_matrix_test[item['prediction_zero_one']-1][item['class']-1] += 1
+    confusion_matrix_test_r[item['prediction_reject']-1][item['class']-1] += 1
+
+
+
+print("Confusion Matrix Test 0-1",*confusion_matrix_test, sep='\n', end='\n\n')
+print("Confusion Matrix Test Reject",*confusion_matrix_test_r, sep='\n', end='\n\n')
