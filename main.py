@@ -1,7 +1,6 @@
 import csv
 import math
 
-
 def read_csv_file(file_name):
     """
     Reads a csv file after second line and returns three list of lists based on the second column
@@ -67,13 +66,11 @@ def standard_deviation(numbers, class_id = None):
     return variance ** 0.5
 
 
-
-
 def calculate_likelihood(number, mean, std_dev):
     """
     Calculates the likelihood
     """
-    likelihood = -1.0 / (std_dev * (2.0 * math.pi) ** 0.5) * (math.exp(-((number - mean) ** 2) / (2.0 * std_dev ** 2)))
+    likelihood = 1.0 / (std_dev * (2.0 * math.pi) ** 0.5) * (math.exp(-((number - mean) ** 2) / (2.0 * std_dev ** 2)))
     return likelihood
 
 
@@ -98,17 +95,41 @@ std_class_3 = standard_deviation(numbers, 3)
 
 #print(std_class_1,std_class_2,std_class_3)
 
-for i in range(len(numbers)):
-    posterior_one   = calculate_likelihood(numbers[i]['value'], mean_class_1, std_class_1) * prior_class_1
-    posterior_two   = calculate_likelihood(numbers[i]['value'], mean_class_2, std_class_2) * prior_class_2
-    posterior_three = calculate_likelihood(numbers[i]['value'], mean_class_3, std_class_3) * prior_class_3
+likelihoods_class_1 = [calculate_likelihood(numbers[i]['value'], mean_class_1, std_class_1) for i in range(len(numbers))]
+likelihoods_class_2 = [calculate_likelihood(numbers[i]['value'], mean_class_2, std_class_2) for i in range(len(numbers))]
+likelihoods_class_3 = [calculate_likelihood(numbers[i]['value'], mean_class_3, std_class_3) for i in range(len(numbers))]
 
-    if posterior_one > posterior_two and posterior_one > posterior_three:
+posterior_ones      = [prior_class_1 * likelihoods_class_1[i] / (likelihoods_class_1[i] * prior_class_1 + likelihoods_class_2[i] * prior_class_2 + likelihoods_class_3[i] * prior_class_3) for i in range(len(numbers))]
+posterior_twos      = [prior_class_2 * likelihoods_class_2[i] / (likelihoods_class_1[i] * prior_class_1 + likelihoods_class_2[i] * prior_class_2 + likelihoods_class_3[i] * prior_class_3) for i in range(len(numbers))]
+posterior_threes    = [prior_class_3 * likelihoods_class_3[i] / (likelihoods_class_1[i] * prior_class_1 + likelihoods_class_2[i] * prior_class_2 + likelihoods_class_3[i] * prior_class_3) for i in range(len(numbers))]
+
+
+for i in range(len(numbers)):
+
+    if posterior_ones[i] > posterior_twos[i] and posterior_ones[i] > posterior_threes[i]:
         numbers[i]['prediction'] = 1
-    elif posterior_two > posterior_one and posterior_two > posterior_three:
+    elif posterior_twos[i] > posterior_ones[i] and posterior_twos[i] > posterior_threes[i]:
         numbers[i]['prediction'] = 2
-    elif posterior_three > posterior_one and posterior_three > posterior_two:
+    elif posterior_threes[i] > posterior_ones[i] and posterior_threes[i] > posterior_twos[i]:
         numbers[i]['prediction'] = 3
 
+#print(*numbers, sep = "\n")
 
-print(*numbers, sep='\n')
+test_list = read_csv_file("testing.csv")
+
+likelihoods_class_1_test = [calculate_likelihood(test_list[i]['value'], mean_class_1, std_class_1) for i in range(len(test_list))]
+likelihoods_class_2_test = [calculate_likelihood(test_list[i]['value'], mean_class_2, std_class_2) for i in range(len(test_list))]
+likelihoods_class_3_test = [calculate_likelihood(test_list[i]['value'], mean_class_3, std_class_3) for i in range(len(test_list))]
+
+posterior_ones_test      = [prior_class_1 * likelihoods_class_1_test[i] / (likelihoods_class_1_test[i] * prior_class_1 + likelihoods_class_2_test[i] * prior_class_2 + likelihoods_class_3_test[i] * prior_class_3) for i in range(len(test_list))]
+posterior_twos_test      = [prior_class_2 * likelihoods_class_2_test[i] / (likelihoods_class_1_test[i] * prior_class_1 + likelihoods_class_2_test[i] * prior_class_2 + likelihoods_class_3_test[i] * prior_class_3) for i in range(len(test_list))]
+posterior_threes_test    = [prior_class_3 * likelihoods_class_3_test[i] / (likelihoods_class_1_test[i] * prior_class_1 + likelihoods_class_2_test[i] * prior_class_2 + likelihoods_class_3_test[i] * prior_class_3) for i in range(len(test_list))]
+
+for i in range(len(test_list)):
+    if posterior_ones_test[i] > posterior_twos_test[i] and posterior_ones_test[i] > posterior_threes_test[i]:
+        test_list[i]['prediction'] = 1
+    elif posterior_twos_test[i] > posterior_ones_test[i] and posterior_twos_test[i] > posterior_threes_test[i]:
+        test_list[i]['prediction'] = 2
+    elif posterior_threes_test[i] > posterior_ones_test[i] and posterior_threes_test[i] > posterior_twos_test[i]:
+        test_list[i]['prediction'] = 3
+
