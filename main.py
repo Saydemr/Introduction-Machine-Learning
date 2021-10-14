@@ -113,7 +113,14 @@ for i in range(len(numbers)):
     elif posterior_threes[i] > posterior_ones[i] and posterior_threes[i] > posterior_twos[i]:
         numbers[i]['prediction'] = 3
 
-#print(*numbers, sep = "\n")
+
+confusion_matrix = [[0,0,0],[0,0,0],[0,0,0]]
+for item in numbers:
+    confusion_matrix[item['class']-1][item['prediction']-1] += 1
+
+print(*confusion_matrix, sep='\n', end='\n\n')
+
+print(*numbers, sep = "\n")
 
 test_list = read_csv_file("testing.csv")
 
@@ -133,3 +140,8 @@ for i in range(len(test_list)):
     elif posterior_threes_test[i] > posterior_ones_test[i] and posterior_threes_test[i] > posterior_twos_test[i]:
         test_list[i]['prediction'] = 3
 
+confusion_matrix_test = [[0,0,0],[0,0,0],[0,0,0]]
+for item in test_list:
+    confusion_matrix_test[item['class']-1][item['prediction']-1] += 1
+
+print(*confusion_matrix_test, sep='\n')
