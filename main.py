@@ -1,5 +1,7 @@
 import csv
 import math
+import matplotlib.pyplot as plt
+from numpy import number
 
 def read_csv_file(file_name):
     """
@@ -75,34 +77,41 @@ def calculate_likelihood(number, mean, std_dev):
 
 
 numbers = read_csv_file("training.csv")
+numbers_one   = [x['value'] for x in numbers if x['class'] == 1]
+numbers_two   = [x['value'] for x in numbers if x['class'] == 2]
+numbers_three = [x['value'] for x in numbers if x['class'] == 3]
+
 count = float(len(numbers))
 
 prior_class_1 = calculate_appearances(numbers, 1) / count
 prior_class_2 = calculate_appearances(numbers, 2) / count
 prior_class_3 = calculate_appearances(numbers, 3) / count
 
-#print(prior_class_1, prior_class_2, prior_class_3)
+print("Priors    : ",prior_class_1, prior_class_2, prior_class_3)
 
 mean_class_1 = my_mean(numbers, 1)
 mean_class_2 = my_mean(numbers, 2)
 mean_class_3 = my_mean(numbers, 3)
 
-#print(mean_class_1,mean_class_2,mean_class_3)
+print("Averages  : ",mean_class_1,mean_class_2,mean_class_3)
 
 std_class_1 = standard_deviation(numbers, 1)
 std_class_2 = standard_deviation(numbers, 2)
 std_class_3 = standard_deviation(numbers, 3)
 
-#print(std_class_1,std_class_2,std_class_3)
+print("Std dev.  : ",std_class_1,std_class_2,std_class_3, end='\n\n')
 
 likelihoods_class_1 = [calculate_likelihood(numbers[i]['value'], mean_class_1, std_class_1) for i in range(len(numbers))]
 likelihoods_class_2 = [calculate_likelihood(numbers[i]['value'], mean_class_2, std_class_2) for i in range(len(numbers))]
 likelihoods_class_3 = [calculate_likelihood(numbers[i]['value'], mean_class_3, std_class_3) for i in range(len(numbers))]
 
+print("Likelihoods [:5]",likelihoods_class_1[:5],likelihoods_class_2[:5],likelihoods_class_3[:5], sep='\n',end='\n\n')
+
 posterior_ones      = [prior_class_1 * likelihoods_class_1[i] / (likelihoods_class_1[i] * prior_class_1 + likelihoods_class_2[i] * prior_class_2 + likelihoods_class_3[i] * prior_class_3) for i in range(len(numbers))]
 posterior_twos      = [prior_class_2 * likelihoods_class_2[i] / (likelihoods_class_1[i] * prior_class_1 + likelihoods_class_2[i] * prior_class_2 + likelihoods_class_3[i] * prior_class_3) for i in range(len(numbers))]
 posterior_threes    = [prior_class_3 * likelihoods_class_3[i] / (likelihoods_class_1[i] * prior_class_1 + likelihoods_class_2[i] * prior_class_2 + likelihoods_class_3[i] * prior_class_3) for i in range(len(numbers))]
 
+print("Posteriors [:5]", posterior_ones[:5], posterior_twos[:5], posterior_threes[:5], sep='\n',end='\n\n')
 
 for i in range(len(numbers)):
 
@@ -134,7 +143,14 @@ print("Confusion Matrix Training Reject",*confusion_matrix_r, sep='\n', end='\n\
 
 
 
+
 test_list = read_csv_file("testing.csv")
+print("lenght", len(test_list))
+
+test_list_one   = [x['value'] for x in test_list if x['class'] == 1]
+test_list_two   = [x['value'] for x in test_list if x['class'] == 2]
+test_list_three = [x['value'] for x in test_list if x['class'] == 3]
+
 
 likelihoods_class_1_test = [calculate_likelihood(test_list[i]['value'], mean_class_1, std_class_1) for i in range(len(test_list))]
 likelihoods_class_2_test = [calculate_likelihood(test_list[i]['value'], mean_class_2, std_class_2) for i in range(len(test_list))]
@@ -162,7 +178,6 @@ for i in range(len(test_list)):
         test_list[i]['prediction_reject'] = 4
 
 
-
 confusion_matrix_test = [[0,0,0],[0,0,0],[0,0,0]]
 confusion_matrix_test_r = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
 
@@ -171,6 +186,14 @@ for item in test_list:
     confusion_matrix_test_r[item['prediction_reject']-1][item['class']-1] += 1
 
 
-
 print("Confusion Matrix Test 0-1",*confusion_matrix_test, sep='\n', end='\n\n')
 print("Confusion Matrix Test Reject",*confusion_matrix_test_r, sep='\n', end='\n\n')
+
+
+plt.title("Likelihoods and Posteriors for Test Dataset")
+plt.plot(test_list_one  , [-0.05 for i in test_list_one], 'rx', label='Class 1')
+plt.plot(test_list_two  , [-0.1 for i in test_list_one] , 'go', label='Class 2')
+plt.plot(test_list_three, [-0.15 for i in test_list_one], 'b+', label='Class 3')
+
+plt.axis([min([x['value'] for x in test_list])-1, max([x['value'] for x in test_list])+1, -0.2, 1.0])
+plt.show()
