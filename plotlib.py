@@ -70,7 +70,7 @@ plt.plot(plot_nums, likelihoods_class_3, 'b-', label='P(X|C=3)')
 plt.legend(loc='center right')
 
 plt.axis([minimum-3, maximum+3, -0.3, 1.1])
-plt.tick_params(axis='x', which='major', labelsize=8)
+#plt.tick_params(axis='x', which='major', labelsize=8)
 plt.xlabel('Age')
 plt.show()
 
@@ -114,6 +114,6 @@ plt.plot(plot_nums_test,likelihoods_class_3, 'b-', label='P(X|C=3)')
 plt.legend(loc='center right')
 
 plt.axis([min([x['value'] for x in test_list])-3, max([x['value'] for x in test_list])+3, -0.3, 1.1])
-plt.tick_params(axis='x', which='major', labelsize=8)
+#plt.tick_params(axis='x', which='major', labelsize=8)
 plt.xlabel('Age')
 plt.show()
