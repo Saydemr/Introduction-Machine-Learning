@@ -76,8 +76,6 @@ plt.show()
 
 
 
-
-
 test_list = read_csv_file("testing.csv")
 test_list_one   = [x['value'] for x in test_list if x['class'] == 1]
 test_list_two   = [x['value'] for x in test_list if x['class'] == 2]
@@ -97,7 +95,6 @@ posterior_twos      = [prior_class_2 * likelihoods_class_2[i] / (likelihoods_cla
 posterior_threes    = [prior_class_3 * likelihoods_class_3[i] / (likelihoods_class_1[i] * prior_class_1 + likelihoods_class_2[i] * prior_class_2 + likelihoods_class_3[i] * prior_class_3) for i in range(len(plot_nums_test))]
 
 
-
 plt.title("Likelihoods and Posteriors for Test Dataset")
 plt.plot(test_list_one  , [-0.05 for i in test_list_one], 'rx')
 plt.plot(test_list_two  , [-0.1 for i in test_list_two] , 'go')
@@ -114,6 +111,5 @@ plt.plot(plot_nums_test,likelihoods_class_3, 'b-', label='P(X|C=3)')
 plt.legend(loc='center right')
 
 plt.axis([min([x['value'] for x in test_list])-3, max([x['value'] for x in test_list])+3, -0.3, 1.1])
-#plt.tick_params(axis='x', which='major', labelsize=8)
 plt.xlabel('Age')
 plt.show()
