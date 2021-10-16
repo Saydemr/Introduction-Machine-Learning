@@ -24,7 +24,9 @@ def calculate_likelihood(number, mean, std_dev):
     likelihood = 1.0 / (std_dev * (2.0 * math.pi) ** 0.5) * (math.exp(-((number - mean) ** 2) / (2.0 * std_dev ** 2)))
     return likelihood
 
-
+'''
+Below values are gathered from the training data.
+'''
 prior_class_1 = 1/3
 prior_class_2 = 1/3
 prior_class_3 = 1/3
@@ -70,7 +72,6 @@ plt.plot(plot_nums, likelihoods_class_3, 'b-', label='P(X|C=3)')
 plt.legend(loc='center right')
 
 plt.axis([minimum-3, maximum+3, -0.3, 1.1])
-#plt.tick_params(axis='x', which='major', labelsize=8)
 plt.xlabel('Age')
 plt.show()
 
