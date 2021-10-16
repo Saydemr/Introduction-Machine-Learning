@@ -56,6 +56,7 @@ posterior_ones      = [prior_class_1 * likelihoods_class_1[i] / (likelihoods_cla
 posterior_twos      = [prior_class_2 * likelihoods_class_2[i] / (likelihoods_class_1[i] * prior_class_1 + likelihoods_class_2[i] * prior_class_2 + likelihoods_class_3[i] * prior_class_3) for i in range(len(plot_nums))]
 posterior_threes    = [prior_class_3 * likelihoods_class_3[i] / (likelihoods_class_1[i] * prior_class_1 + likelihoods_class_2[i] * prior_class_2 + likelihoods_class_3[i] * prior_class_3) for i in range(len(plot_nums))]
 
+
 plt.title("Likelihoods and Posteriors for Training Dataset")
 plt.plot(numbers_one  , [-0.05 for i in numbers_one], 'rx')
 plt.plot(numbers_two  , [-0.1 for i in numbers_two] , 'go')
@@ -111,6 +112,6 @@ plt.plot(plot_nums_test,likelihoods_class_3, 'b-', label='P(X|C=3)')
 
 plt.legend(loc='center right')
 
-plt.axis([min([x['value'] for x in test_list])-3, max([x['value'] for x in test_list])+3, -0.3, 1.1])
+plt.axis([minimum-3, maximum+3, -0.3, 1.1])
 plt.xlabel('Age')
 plt.show()

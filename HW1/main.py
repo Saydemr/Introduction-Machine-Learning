@@ -1,7 +1,6 @@
 import csv
 import math
 import matplotlib.pyplot as plt
-from numpy import number
 
 def read_csv_file(file_name):
     """
@@ -142,6 +141,7 @@ print("Confusion Matrix Training 0-1",*confusion_matrix, sep='\n', end='\n\n')
 print("Confusion Matrix Training w/ Rejection",*confusion_matrix_r, sep='\n', end='\n\n')
 
 
+
 test_list = read_csv_file("testing.csv")
 test_list_one   = [x['value'] for x in test_list if x['class'] == 1]
 test_list_two   = [x['value'] for x in test_list if x['class'] == 2]
@@ -178,7 +178,6 @@ confusion_matrix_test_r = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
 for item in test_list:
     confusion_matrix_test[item['prediction_zero_one']-1][item['class']-1] += 1
     confusion_matrix_test_r[item['prediction_reject']-1][item['class']-1] += 1
-
 
 print("Confusion Matrix Test 0-1",*confusion_matrix_test, sep='\n', end='\n\n')
 print("Confusion Matrix Test w/ Rejection",*confusion_matrix_test_r, sep='\n', end='\n\n')
