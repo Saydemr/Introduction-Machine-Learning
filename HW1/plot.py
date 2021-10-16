@@ -5,7 +5,7 @@ import numpy as np
 
 def read_csv_file(file_name):
     """
-    Reads a csv file after second line and returns three list of lists based on the second column
+    Reads a csv file after second line and returns list of dictionaries with the data. Initial values of predictions are -1
     """
     numbers = []
     with open(file_name, 'r') as csv_file:

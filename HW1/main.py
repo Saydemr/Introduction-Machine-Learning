@@ -132,7 +132,10 @@ for i in range(len(numbers)):
 
 
 confusion_matrix = [[0,0,0],[0,0,0],[0,0,0]]
-confusion_matrix_r = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
+confusion_matrix_r = [  [0,0,0],
+                        [0,0,0],
+                        [0,0,0],
+                        [0,0,0]]
 for item in numbers:
     confusion_matrix[item['prediction_zero_one']-1][item['class']-1] += 1
     confusion_matrix_r[item['prediction_reject']-1][item['class']-1] += 1
