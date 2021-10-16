@@ -87,19 +87,19 @@ prior_class_1 = calculate_appearances(numbers, 1) / count
 prior_class_2 = calculate_appearances(numbers, 2) / count
 prior_class_3 = calculate_appearances(numbers, 3) / count
 
-#print("Priors    : ",prior_class_1, prior_class_2, prior_class_3)
+print("Priors    : ",prior_class_1, prior_class_2, prior_class_3)
 
 mean_class_1 = my_mean(numbers, 1)
 mean_class_2 = my_mean(numbers, 2)
 mean_class_3 = my_mean(numbers, 3)
 
-#print("Averages  : ",mean_class_1,mean_class_2,mean_class_3)
+print("Averages  : ",mean_class_1,mean_class_2,mean_class_3)
 
 std_class_1 = standard_deviation(numbers, 1)
 std_class_2 = standard_deviation(numbers, 2)
 std_class_3 = standard_deviation(numbers, 3)
 
-#print("Std dev.  : ",std_class_1,std_class_2,std_class_3, end='\n\n')
+print("Std dev.  : ",std_class_1,std_class_2,std_class_3, end='\n\n')
 
 likelihoods_class_1 = [calculate_likelihood(numbers[i]['value'], mean_class_1, std_class_1) for i in range(len(numbers))]
 likelihoods_class_2 = [calculate_likelihood(numbers[i]['value'], mean_class_2, std_class_2) for i in range(len(numbers))]
