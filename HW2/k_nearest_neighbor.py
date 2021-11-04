@@ -81,6 +81,12 @@ for k in range(1,10,2):
     accuracy_training.append((confusion_matrix_training[0][0] + confusion_matrix_training[1][1] + confusion_matrix_training[2][2]) / float(sum_numbers([sum_numbers(x) for x in confusion_matrix_training])))
 
 
+plt.plot(range(1,10,2), accuracy_training, 'ro')
+plt.xlabel('k')
+plt.ylabel('Accuracy')
+plt.title('Accuracy vs k for Training Data')
+plt.show()
+
 print('\n\n---Testing---')
 
 
@@ -107,3 +113,9 @@ for k in range(1,10,2):
     print('Accuracy: ', (confusion_matrix_test[0][0] + confusion_matrix_test[1][1] + confusion_matrix_test[2][2]) / float(sum_numbers([sum_numbers(x) for x in confusion_matrix_test])),end='\n')
     print('Confusion Matrix', *confusion_matrix_test, sep='\n',end='\n\n')
     
+
+plt.plot(range(1,10,2), accuracy_test, 'ro')
+plt.xlabel('k')
+plt.ylabel('Accuracy')
+plt.title('Accuracy vs k for Testing Data')
+plt.show()

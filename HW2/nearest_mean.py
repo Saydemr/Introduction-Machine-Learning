@@ -94,21 +94,6 @@ print('Confusion matrix for training data:', *confusion_matrix,sep='\n', end='\n
 print('Confusion matrix for testing data:', *confusion_matrix_test,sep='\n', end='\n\n')
 
 
-plt.title("Iris Dataset - Test")
-plt.scatter([x['petal_length'] for x in testing_data if x['species']==0] , [x['petal_width'] for x in testing_data if x['species']==0], c='r', label='Iris-Setosa', marker="x")
-plt.scatter([y['petal_length'] for y in testing_data if y['species']==1] , [y['petal_width'] for y in testing_data if y['species']==1], c='g', label='Iris-Versicolor', marker="o")
-plt.scatter([z['petal_length'] for z in testing_data if z['species']==2] , [z['petal_width'] for z in testing_data if z['species']==2], c='b', label='Iris-Virginica', marker="+")
-
-plt.scatter(mean_setosa[0]    , mean_setosa[1]    , c='c', marker='^', label='Mean Setosa')
-plt.scatter(mean_versicolor[0], mean_versicolor[1], c='m', marker='d', label='Mean Versicolor')
-plt.scatter(mean_virginica[0] , mean_virginica[1] , c='y', marker='p', label='Mean Virginica')
-
-plt.legend(loc='upper left')
-plt.xlabel('Petal Length')
-plt.ylabel('Petal Width')
-plt.show()
-
-
 plt.title("Iris Dataset - Training")
 plt.scatter([x['petal_length'] for x in training_data if x['species']==0] , [x['petal_width'] for x in training_data if x['species']==0], c='r', label='Iris-Setosa', marker="x")
 plt.scatter([y['petal_length'] for y in training_data if y['species']==1] , [y['petal_width'] for y in training_data if y['species']==1], c='g', label='Iris-Versicolor', marker="o")
@@ -117,6 +102,21 @@ plt.scatter([z['petal_length'] for z in training_data if z['species']==2] , [z['
 plt.scatter(mean_setosa[0], mean_setosa[1], c='c', marker='^', label='Mean Setosa')
 plt.scatter(mean_versicolor[0], mean_versicolor[1], c='m', marker='d', label='Mean Versicolor')
 plt.scatter(mean_virginica[0], mean_virginica[1], c='y', marker='p', label='Mean Virginica')
+
+plt.legend(loc='upper left')
+plt.xlabel('Petal Length')
+plt.ylabel('Petal Width')
+plt.show()
+
+
+plt.title("Iris Dataset - Testing")
+plt.scatter([x['petal_length'] for x in testing_data if x['species']==0] , [x['petal_width'] for x in testing_data if x['species']==0], c='r', label='Iris-Setosa', marker="x")
+plt.scatter([y['petal_length'] for y in testing_data if y['species']==1] , [y['petal_width'] for y in testing_data if y['species']==1], c='g', label='Iris-Versicolor', marker="o")
+plt.scatter([z['petal_length'] for z in testing_data if z['species']==2] , [z['petal_width'] for z in testing_data if z['species']==2], c='b', label='Iris-Virginica', marker="+")
+
+plt.scatter(mean_setosa[0]    , mean_setosa[1]    , c='c', marker='^', label='Mean Setosa')
+plt.scatter(mean_versicolor[0], mean_versicolor[1], c='m', marker='d', label='Mean Versicolor')
+plt.scatter(mean_virginica[0] , mean_virginica[1] , c='y', marker='p', label='Mean Virginica')
 
 plt.legend(loc='upper left')
 plt.xlabel('Petal Length')
