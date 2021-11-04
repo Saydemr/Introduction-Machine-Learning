@@ -62,11 +62,11 @@ training_data = read_csv_file('training.csv')
 
 adjacency_matrix_training = [[0 for j in range(len(training_data))] for i in range(len(training_data))]
 accuracy_training = []
-for flower in training_data:
-    for flower2 in training_data:
-        adjacency_matrix_training[training_data.index(flower)][training_data.index(flower2)] = (euclidian_distance(flower['petal_length'],flower['petal_width'],flower2['petal_length'],flower2['petal_width']) if flower != flower2 else math.inf)
+for i in range(len(training_data)):
+    for j in range(len(training_data)):
+        adjacency_matrix_training[i][j] = (euclidian_distance(training_data[i]['petal_length'],training_data[i]['petal_width'],training_data[j]['petal_length'],training_data[j]['petal_width']) if i != j else math.inf)
 
-    flower['nearest_nine_index'] = sorted(range(len(adjacency_matrix_training[training_data.index(flower)])), key=lambda k: adjacency_matrix_training[training_data.index(flower)][k])[:9]
+    training_data[i]['nearest_nine_index'] = sorted(range(len(adjacency_matrix_training[i])), key=lambda k: adjacency_matrix_training[i][k])[:9]
 
 for k in range(1,10,2):
     confusion_matrix_training = [[0,0,0],[0,0,0],[0,0,0]]
@@ -95,11 +95,11 @@ test_data = read_csv_file('testing.csv')
 adjacency_matrix_test = [[0 for j in range(len(test_data))] for i in range(len(test_data))]
 accuracy_test = []
 
-for flower in test_data:
-    for flower2 in test_data:
-        adjacency_matrix_test[test_data.index(flower)][test_data.index(flower2)] = (euclidian_distance(flower['petal_length'],flower['petal_width'],flower2['petal_length'],flower2['petal_width']) if flower != flower2 else math.inf)
+for i in range(len(test_data)):
+    for j in range(len(test_data)):
+        adjacency_matrix_test[i][j] = (euclidian_distance(test_data[i]['petal_length'],test_data[i]['petal_width'],test_data[j]['petal_length'],test_data[j]['petal_width']) if i != j else math.inf)
 
-    flower['nearest_nine_index'] = sorted(range(len(adjacency_matrix_test[test_data.index(flower)])), key=lambda k: adjacency_matrix_test[test_data.index(flower)][k])[:9]
+    test_data[i]['nearest_nine_index'] = sorted(range(len(adjacency_matrix_test[i])), key=lambda k: adjacency_matrix_test[i][k])[:9]
 
 for k in range(1,10,2):
     confusion_matrix_test = [[0,0,0],[0,0,0],[0,0,0]]
@@ -113,6 +113,7 @@ for k in range(1,10,2):
     print('Accuracy: ', (confusion_matrix_test[0][0] + confusion_matrix_test[1][1] + confusion_matrix_test[2][2]) / float(sum_numbers([sum_numbers(x) for x in confusion_matrix_test])),end='\n')
     print('Confusion Matrix', *confusion_matrix_test, sep='\n',end='\n\n')
     
+
 
 plt.plot(range(1,10,2), accuracy_test, 'ro')
 plt.xlabel('k')
