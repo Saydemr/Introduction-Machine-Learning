@@ -57,11 +57,22 @@ def my_mode(numbers):
     """
     return max(set(numbers), key=numbers.count)
 
+
 print('---Training---')
 training_data = read_csv_file('training.csv')
 
+
 adjacency_matrix_training = [[0 for j in range(len(training_data))] for i in range(len(training_data))]
 accuracy_training = []
+
+'''
+for flower in training_data:
+    for flower2 in training_data:
+        adjacency_matrix_test[training_data.index(flower)][training_data.index(flower2)] = (euclidian_distance(flower['petal_length'],flower['petal_width'],flower2['petal_length'],flower2['petal_width']) if flower != flower2 else math.inf)
+        print(training_data.index(flower), training_data.index(flower2), adjacency_matrix_test[training_data.index(flower)][training_data.index(flower2)], file=open('adjacency_matrix_test.txt', 'a'))
+    flower['nearest_nine_index'] = sorted(range(len(adjacency_matrix_test[training_data.index(flower)])), key=lambda k: adjacency_matrix_test[training_data.index(flower)][k])[:9]
+'''
+
 for i in range(len(training_data)):
     for j in range(len(training_data)):
         adjacency_matrix_training[i][j] = (euclidian_distance(training_data[i]['petal_length'],training_data[i]['petal_width'],training_data[j]['petal_length'],training_data[j]['petal_width']) if i != j else math.inf)
@@ -74,37 +85,42 @@ for k in range(1,10,2):
         flower['prediction'] = my_mode(k_nearest_neighbor_types(k, flower, training_data))
         confusion_matrix_training[flower['prediction']][flower['species']] += 1
     
-
     print('k = ', k, end='\n')
     #print('Confusion Matrix', *confusion_matrix_training, sep='\n',end='\n\n')
     print('Accuracy: ', (confusion_matrix_training[0][0] + confusion_matrix_training[1][1] + confusion_matrix_training[2][2]) / float(sum_numbers([sum_numbers(x) for x in confusion_matrix_training])),end='\n')
     accuracy_training.append((confusion_matrix_training[0][0] + confusion_matrix_training[1][1] + confusion_matrix_training[2][2]) / float(sum_numbers([sum_numbers(x) for x in confusion_matrix_training])))
 
 
-plt.plot(range(1,10,2), accuracy_training, 'ro')
+plt.plot(range(1,10,2), accuracy_training, 'b-', marker='o')
 plt.xlabel('k')
 plt.ylabel('Accuracy')
 plt.title('Accuracy vs k for Training Data')
+plt.axis([0.5,9.5,0.75,1])
 plt.show()
 
+
+
+
+
+
+
+
 print('\n\n---Testing---')
-
-
 test_data = read_csv_file('testing.csv')
 
-adjacency_matrix_test = [[0 for j in range(len(test_data))] for i in range(len(test_data))]
+adjacency_matrix_test = [[0 for j in range(len(training_data))] for i in range(len(test_data))]
 accuracy_test = []
 
 for i in range(len(test_data)):
-    for j in range(len(test_data)):
-        adjacency_matrix_test[i][j] = (euclidian_distance(test_data[i]['petal_length'],test_data[i]['petal_width'],test_data[j]['petal_length'],test_data[j]['petal_width']) if i != j else math.inf)
+    for j in range(len(training_data)):
+        adjacency_matrix_test[i][j] = euclidian_distance(test_data[i]['petal_length'],test_data[i]['petal_width'],training_data[j]['petal_length'],training_data[j]['petal_width'])
 
     test_data[i]['nearest_nine_index'] = sorted(range(len(adjacency_matrix_test[i])), key=lambda k: adjacency_matrix_test[i][k])[:9]
 
 for k in range(1,10,2):
     confusion_matrix_test = [[0,0,0],[0,0,0],[0,0,0]]
     for flower in test_data:
-        flower['prediction'] = my_mode(k_nearest_neighbor_types(k, flower, test_data))
+        flower['prediction'] = my_mode(k_nearest_neighbor_types(k, flower, training_data))
         confusion_matrix_test[flower['prediction']][flower['species']] += 1
     
     accuracy_test.append((confusion_matrix_test[0][0] + confusion_matrix_test[1][1] + confusion_matrix_test[2][2]) / float(sum_numbers([sum_numbers(x) for x in confusion_matrix_test])))
@@ -114,9 +130,9 @@ for k in range(1,10,2):
     print('Confusion Matrix', *confusion_matrix_test, sep='\n',end='\n\n')
     
 
-
-plt.plot(range(1,10,2), accuracy_test, 'ro')
+plt.plot(range(1,10,2), accuracy_test, 'r-', marker='o')
 plt.xlabel('k')
 plt.ylabel('Accuracy')
 plt.title('Accuracy vs k for Testing Data')
+plt.axis([0.5,9.5,0.75,1])
 plt.show()
