@@ -45,7 +45,7 @@ def matrix_multiplication(m1, m2):
     """
     Multiplies two matrices
     """
-    result = [[sum(a*b for a,b in zip(row, col)) for col in zip(*m2)] for row in m1]
+    result = [[sum_numbers(a*b for a,b in zip(row, col)) for col in zip(*m2)] for row in m1]
     return result
 
 def inverse_two_by_two(matrix):
@@ -86,7 +86,6 @@ covariance_versicolor_1 = [[ x / 30.0 for x in covariance_versicolor[i]] for i i
 covariance_virginica  = matrix_multiplication(c_vi, my_transpose(c_vi)) 
 covariance_virginica_1  = [[ x / 30.0 for x in covariance_virginica[i]] for i in range(len(covariance_virginica))]
 
-
 covariance_setosa_i     = inverse_two_by_two(covariance_setosa_1)
 covariance_versicolor_i = inverse_two_by_two(covariance_versicolor_1)
 covariance_virginica_i  = inverse_two_by_two(covariance_virginica_1)
@@ -115,7 +114,9 @@ for flower in training_data:
 
     confusion_matrix[flower['prediction']][flower['species']] += 1
 
+print('TRAINING')
 print(*confusion_matrix, sep='\n')
+print('Accurracy', (confusion_matrix[0][0] + confusion_matrix[1][1] + confusion_matrix[2][2]) / len(training_data))
 print('\n')
 
 testing_data = read_csv_file('testing.csv')
@@ -143,4 +144,6 @@ for flower in testing_data:
     
     confusion_matrix_test[flower['prediction']][flower['species']] += 1
 
+print('TESTING')
 print(*confusion_matrix_test, sep='\n')
+print('Accurracy :', (confusion_matrix_test[0][0] + confusion_matrix_test[1][1] + confusion_matrix_test[2][2]) / len(testing_data))
