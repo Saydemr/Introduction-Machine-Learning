@@ -61,17 +61,8 @@ def my_mode(numbers):
 print('---Training---')
 training_data = read_csv_file('training.csv')
 
-
 adjacency_matrix_training = [[0 for j in range(len(training_data))] for i in range(len(training_data))]
 accuracy_training = []
-
-'''
-for flower in training_data:
-    for flower2 in training_data:
-        adjacency_matrix_test[training_data.index(flower)][training_data.index(flower2)] = (euclidian_distance(flower['petal_length'],flower['petal_width'],flower2['petal_length'],flower2['petal_width']) if flower != flower2 else math.inf)
-        print(training_data.index(flower), training_data.index(flower2), adjacency_matrix_test[training_data.index(flower)][training_data.index(flower2)], file=open('adjacency_matrix_test.txt', 'a'))
-    flower['nearest_nine_index'] = sorted(range(len(adjacency_matrix_test[training_data.index(flower)])), key=lambda k: adjacency_matrix_test[training_data.index(flower)][k])[:9]
-'''
 
 for i in range(len(training_data)):
     for j in range(len(training_data)):
@@ -97,12 +88,6 @@ plt.ylabel('Accuracy')
 plt.title('Accuracy vs k for Training Data')
 plt.axis([0.5,9.5,0.75,1])
 plt.show()
-
-
-
-
-
-
 
 
 print('\n\n---Testing---')
