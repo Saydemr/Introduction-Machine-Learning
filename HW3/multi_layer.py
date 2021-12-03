@@ -32,7 +32,6 @@ def accuracy_confusion_matrix(x):
                 correct += x[i][j]
     return correct/total
 
-
 def one_hot_encode(y):
     return np.transpose(np.eye(10)[y-1])
 
@@ -40,15 +39,15 @@ def one_hot_decode(y):
     return np.argmax(y) + 1
 
 def sigmoid(x):
-    return 1.0 / (1.0+np.exp(-x))
+    return 1. / (1.+ np.exp(-x))
 
 def softmax(x):
     e_x = np.exp(x - np.max(x))
     return e_x / e_x.sum()
 
-learning_rate = 0.1
+learning_rate = 0.07
 K = 10
-E = 20
+E = 50
 d = 100
 
 matrix = pd.read_csv('training.csv', header=None)
@@ -64,6 +63,7 @@ N_test = matrix_test.shape[0]
 y_matrix_test = np.zeros((N_test,K))
 
 for H in [5, 10, 25, 50, 75]:
+    print("H = ", H)
     accuracy_best = 0
     w_matrix_best = np.zeros((d+1,K))
     confusion_matrix_training_best = np.zeros((K,K))
@@ -72,12 +72,10 @@ for H in [5, 10, 25, 50, 75]:
     training_accuracies = []
     test_accuracies     = []
 
+    v_matrix = np.random.uniform(low=-0.01, high=0.01, size=(H+1, K))
+    w_matrix = np.random.uniform(low=-0.01, high=0.01, size=(d+1 ,H))
     for epochs in range(E):
-        v_matrix = np.random.uniform(low=-0.01, high=0.01, size=(H+1, 10))
-        w_matrix = np.random.uniform(low=-0.01, high=0.01, size=(d+1,H))
-
         random_list = list(range(N))
-        print(len(random_list))
         random.shuffle(random_list)
 
         for instance in random_list:
@@ -85,16 +83,19 @@ for H in [5, 10, 25, 50, 75]:
             x_t = np.append(1, x_t)
             x_t = np.transpose(x_t)
 
-            z_t = np.zeros(H)
-            z_t = np.append(1, z_t)
+            z = np.zeros(H)
 
             for h in range(H):
                 w_h_T  = np.transpose(w_matrix[:,h]) 
-                z_t[h] = sigmoid(np.dot(w_h_T, x_t))
+                z[h] = sigmoid(np.dot(w_h_T, x_t))
+            
+            z = np.append(1, z)
+            z = np.transpose(z)
 
             os = np.zeros(K)
             for i in range(K):
-                os[i] = np.dot(np.transpose(v_matrix[:,i]), z_t)
+                os[i] = np.dot(np.transpose(v_matrix[:,i]), z)
+            
 
             y_matrix[instance] = softmax(os)
 
@@ -102,14 +103,15 @@ for H in [5, 10, 25, 50, 75]:
             delta_w_matrix = np.zeros(w_matrix.shape)
 
             r_t = one_hot_encode(R.iloc[instance])
+
             for i in range(K):
-                delta_v_matrix[:,i] = learning_rate*(y_matrix[instance][i] - r_t[i])*z_t
+                delta_v_matrix[:,i] = learning_rate*(r_t[i] - y_matrix[instance][i]) * z
 
             for h in range(H):
                 summa = 0.0
                 for i in range(K):
                     summa += (r_t[i] - y_matrix[instance][i])*v_matrix[h,i]
-                delta_w_matrix[:,h] = learning_rate*z_t[h]*(1-z_t[h])*summa*x_t
+                delta_w_matrix[:,h] = learning_rate*summa*z[h]*(1-z[h])*x_t
             
             for i in range(K):
                 v_matrix[:,i] += delta_v_matrix[:,i]
@@ -122,17 +124,20 @@ for H in [5, 10, 25, 50, 75]:
             x_t = np.append(1, x_t)
             x_t = np.transpose(x_t)
 
-            z_t = np.zeros(H)
-            z_t = np.append(1,z_t)
+            z = np.zeros(H)
 
             for h in range(H):
                 w_h_T  = np.transpose(w_matrix[:,h]) 
-                z_t[h] = sigmoid(np.dot(w_h_T, x_t))
+                z[h] = sigmoid(np.dot(w_h_T, x_t))
+            
+            z = np.append(1, z)
+            z = np.transpose(z)
 
             os = np.zeros(K)
             for i in range(K):
-                os[i] = np.dot(np.transpose(v_matrix[:,i]), z_t)
-
+                os[i] = np.dot(np.transpose(v_matrix[:,i]), z)
+            
+            #print(os)
             y_matrix[instance] = softmax(os)
         
         for instance in random_list:
@@ -140,21 +145,24 @@ for H in [5, 10, 25, 50, 75]:
             x_t_test = np.append(1, x_t_test)
             x_t_test = np.transpose(x_t_test)
 
-            z_t_test = np.zeros(H)
-            z_t_test = np.append(1, z_t_test)
+            z_test = np.zeros(H)
 
             for h in range(H):
                 w_h_T  = np.transpose(w_matrix[:,h]) 
-                z_t_test[h] = sigmoid(np.dot(w_h_T, x_t_test))
+                z_test[h] = sigmoid(np.dot(w_h_T, x_t_test))
+            
+            z_test = np.append(1, z_test)
+            z_test = np.transpose(z_test)
 
             os = np.zeros(K)
             for i in range(K):
-                os[i] = np.dot(np.transpose(v_matrix[:,i]), z_t)
-
+                os[i] = np.dot(np.transpose(v_matrix[:,i]), z_test)
+            
+            #print(os)
             y_matrix_test[instance] = softmax(os)
 
         confusion_matrix_training = np.zeros((K,K))
-        confusion_matrix_test = np.zeros((K,K))
+        confusion_matrix_test     = np.zeros((K,K))
 
         for t in range(N):
             confusion_matrix_training[R.iloc[t]-1,  np.argmax(y_matrix[t])] += 1
