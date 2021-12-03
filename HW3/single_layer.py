@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+# Taken from Mahir the TA
 def plot_mean_images(weights):
     # Creating 4*3 subplots
     fig, axes = plt.subplots(4, 3)
@@ -37,9 +39,10 @@ def accuracy_confusion_matrix(x):
                 correct += x[i][j]
     return correct/total
 
-learning_rate = 0.1
+learning_rate = 0.07
 K = 10
 d = 100
+E = 50
 
 matrix = pd.read_csv('training.csv', header=None)
 
@@ -60,9 +63,12 @@ y_matrix_test = np.zeros((N,K))
 
 accuracy_best = 0
 w_matrix_best = np.zeros((d+1,K))
+confusion_matrix_training_best = np.zeros((K,K))
+confusion_matrix_test_best = np.zeros((K,K))
 
-accuracies = []
-for epochs in range(50):
+training_accuracies = []
+test_accuracies = []
+for epochs in range(E):
     delta_w = np.zeros(w_matrix.shape)
 
     for t in range(N):
@@ -70,12 +76,13 @@ for epochs in range(50):
         x_t = np.append(x_t, 1)
         x_t = np.transpose(x_t)
 
-        r_t = one_hot_encode(R.iloc[t])
-        o = np.zeros(K, dtype=np.float64)
+
+        o = np.zeros(K)
         for i in range(K):
             o[i] = np.dot(w_matrix[:,i], x_t)
-
+        
         y_matrix[t] = softmax(o)
+        r_t = one_hot_encode(R.iloc[t])
 
         for i in range(K):
             for j in range(d+1):
@@ -109,17 +116,31 @@ for epochs in range(50):
 
         y_matrix_test[t] = softmax(o)
 
+        
+    confusion_matrix_training = np.zeros((K,K))
+    confusion_matrix_test = np.zeros((K,K))
+
     for t in range(N):
         confusion_matrix_training[R.iloc[t]-1,  np.argmax(y_matrix[t])] += 1
         confusion_matrix_test[R.iloc[t]-1, np.argmax(y_matrix_test[t])] += 1
 
     accuracy_training = accuracy_confusion_matrix(confusion_matrix_training)
     accuracy_test = accuracy_confusion_matrix(confusion_matrix_test)
-    accuracies.append([accuracy_training, accuracy_test])
+    test_accuracies.append(accuracy_test)
+    training_accuracies.append(accuracy_training)
+
     print("Epoch: ", epochs+1, "Training Accuracy: ", accuracy_training, "Testing Accuracy: ", accuracy_test)
 
     if accuracy_test > accuracy_best:
         accuracy_best = accuracy_test
         w_matrix_best = w_matrix
+        confusion_matrix_test_best = confusion_matrix_test
+        confusion_matrix_training_best = confusion_matrix_training
 
 plot_mean_images(w_matrix_best[:-1,:])
+#print("10 Dimensional Probabilities :", y_matrix)
+
+plt.plot(training_accuracies, label='Training Accuracy')
+plt.plot(test_accuracies, label='Testing Accuracy')
+plt.legend()
+plt.show()

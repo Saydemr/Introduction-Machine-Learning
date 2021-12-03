@@ -15,7 +15,7 @@ def softmax(x):
     e_x = np.exp(x - np.max(x))
     return e_x / e_x.sum()
 
-learning_rate = 0.01
+learning_rate = 0.1
 K = 10
 
 matrix = pd.read_csv('training.csv', header=None)
