@@ -9,7 +9,7 @@ def one_hot_decode(y):
     return np.argmax(y) + 1
 
 def sigmoid(x):
-    return 1 / (1+np.exp(-x))
+    return 1.0 / (1.0+np.exp(-x))
 
 def softmax(x):
     e_x = np.exp(x - np.max(x))
@@ -69,12 +69,12 @@ for H in [5, 10, 25, 50, 75]:
 
             for h in range(H):
                 summa = 0.0
-                for i in range(10):
+                for i in range(K):
                     summa += (r_t[i] - y_t[i])*v_matrix[h,i]
                 delta_w_matrix[:,h] = learning_rate*z_t[h]*(1-z_t[h])*summa*x_t
             
             for i in range(K):
-                v_matrix[:,i] = v_matrix[:,i] + delta_v_matrix[:,i]
+                v_matrix[:,i] += delta_v_matrix[:,i]
 
             for h in range(H):
-                w_matrix[:,h] = w_matrix[:,h] + delta_w_matrix[:,h]
+                w_matrix[:,h] += delta_w_matrix[:,h]

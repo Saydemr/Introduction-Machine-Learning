@@ -2,6 +2,24 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+def plot_mean_images(weights):
+    # Creating 4*3 subplots
+    fig, axes = plt.subplots(4, 3)
+    # Set the height of plat 8px*8px
+    fig.set_figheight(8)
+    fig.set_figwidth(8)
+    fig.suptitle('Mean Images')
+    # For each subplot run the code inside loop
+    for label in range(12):
+        # If the subplot index is a label (0,1,2...9)
+        if label<10:
+            axes[label//3][label%3].imshow(weights[:,label].reshape(10,10),)
+        # Do not show the axes of subplots
+        axes[label//3][label%3].axis('off') 
+    # Showing the plot
+    plt.show()
+
+
 def softmax(x):
     e_x = np.exp(x - np.max(x))
     return e_x / e_x.sum()
@@ -19,7 +37,7 @@ def accuracy_confusion_matrix(x):
                 correct += x[i][j]
     return correct/total
 
-learning_rate = 0.07
+learning_rate = 0.1
 K = 10
 d = 100
 
@@ -30,10 +48,20 @@ X = matrix.iloc[:,1:] / 255
 N = matrix.shape[0]
 
 confusion_matrix_training = np.zeros((K,K))
+confusion_matrix_test = np.zeros((K,K))
 w_matrix = np.random.uniform(low=-0.01, high=0.01, size=(d+1,K))
 y_matrix = np.zeros((N,K))
 
+matrix_test = pd.read_csv('testing.csv', header=None)
+R_test = matrix_test.iloc[:,0]
+X_test = matrix_test.iloc[:,1:] / 255
+N_test = matrix_test.shape[0]
+y_matrix_test = np.zeros((N,K))
 
+accuracy_best = 0
+w_matrix_best = np.zeros((d+1,K))
+
+accuracies = []
 for epochs in range(50):
     delta_w = np.zeros(w_matrix.shape)
 
@@ -58,43 +86,40 @@ for epochs in range(50):
                 w_matrix[j,i] += delta_w[j,i] * learning_rate
 
     for t in range(N):
-        confusion_matrix_training[R.iloc[t]-1, np.argmax(y_matrix[t])] += 1
+        x_t = X.iloc[t,:]
+        x_t = np.append(x_t, 1)
+        x_t = np.transpose(x_t)
 
-    print("Epoch: ", epochs+1, "Accuracy: ", accuracy_confusion_matrix(confusion_matrix_training))
+        r_t = one_hot_encode(R.iloc[t])
+        o = np.zeros(K, dtype=np.float64)
+        for i in range(K):
+            o[i] = np.dot(w_matrix[:,i], x_t)
 
-    if epochs == 49:
-        print(w_matrix.shape)
-        w_matrix_final = np.transpose(w_matrix[:,1][1:]).reshape(K,K)
-        print(w_matrix_final.shape)
-        plt.imshow(w_matrix_final, cmap='gray')
-        plt.show()
+        y_matrix[t] = softmax(o)
 
+    for t in range(N):
+        x_t_test = X_test.iloc[t,:]
+        x_t_test = np.append(x_t_test, 1)
+        x_t_test = np.transpose(x_t_test)
 
-matrix_test = pd.read_csv('testing.csv', header=None)
+        r_t_test = one_hot_encode(R_test.iloc[t])
+        o = np.zeros(K, dtype=np.float64)
+        for i in range(K):
+            o[i] = np.dot(w_matrix[:,i], x_t_test)
 
-R = matrix_test.iloc[:,0]
-X = matrix_test.iloc[:,1:] / 255
-N = matrix_test.shape[0]
+        y_matrix_test[t] = softmax(o)
 
-y_matrix_test = np.zeros((N,K))
-confusion_matrix_test = np.zeros((K,K))
+    for t in range(N):
+        confusion_matrix_training[R.iloc[t]-1,  np.argmax(y_matrix[t])] += 1
+        confusion_matrix_test[R.iloc[t]-1, np.argmax(y_matrix_test[t])] += 1
 
-for t in range(N):
-    x_t = X.iloc[t,:]
-    x_t = np.append(x_t, 1)
-    x_t = np.transpose(x_t)
+    accuracy_training = accuracy_confusion_matrix(confusion_matrix_training)
+    accuracy_test = accuracy_confusion_matrix(confusion_matrix_test)
+    accuracies.append([accuracy_training, accuracy_test])
+    print("Epoch: ", epochs+1, "Training Accuracy: ", accuracy_training, "Testing Accuracy: ", accuracy_test)
 
-    r_t = one_hot_encode(R.iloc[t])
-    o = np.zeros(K, dtype=np.float64)
-    for i in range(K):
-        o[i] = np.dot(w_matrix[:,i], x_t)
+    if accuracy_test > accuracy_best:
+        accuracy_best = accuracy_test
+        w_matrix_best = w_matrix
 
-    y_matrix_test[t] = softmax(o)
-
-for t in range(N):
-    confusion_matrix_test[R.iloc[t]-1, np.argmax(y_matrix[t])] += 1
-
-print("Accuracy Testing: ", accuracy_confusion_matrix(confusion_matrix_test))
-
-# Probabilities for each image
-#print(y_matrix)
+plot_mean_images(w_matrix_best[:-1,:])
