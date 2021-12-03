@@ -5,11 +5,15 @@ import random
 def one_hot_encode(y):
     return np.transpose(np.eye(10)[y-1])
 
+def one_hot_decode(y):
+    return np.argmax(y) + 1
+
 def sigmoid(x):
     return 1 / (1+np.exp(-x))
 
 def softmax(x):
-    return np.exp(x) / np.sum(np.exp(x), axis=0)
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
 
 learning_rate = 0.01
 K = 10
@@ -31,7 +35,7 @@ for H in [5, 10, 25, 50, 75]:
 
         random_list = list(range(X.shape[1]))
         random.shuffle(random_list)
-        
+
         for instance in random_list:
             x_t = X.iloc[instance,:]
             x_t = np.append(x_t, 1)
@@ -54,7 +58,7 @@ for H in [5, 10, 25, 50, 75]:
             os = np.zeros(K)
             for i in range(K):
                 os[i] = np.dot(np.transpose(v_matrix[:,i]), z_t)
-            
+
             y_t = softmax(os)
 
             delta_v_matrix = np.zeros(v_matrix.shape)
@@ -62,7 +66,7 @@ for H in [5, 10, 25, 50, 75]:
 
             for i in range(K):
                 delta_v_matrix[:,i] = learning_rate*(y_t[i]-r_t[i])*z_t
-            
+
             for h in range(H):
                 summa = 0.0
                 for i in range(10):
@@ -74,4 +78,3 @@ for H in [5, 10, 25, 50, 75]:
 
             for h in range(H):
                 w_matrix[:,h] = w_matrix[:,h] + delta_w_matrix[:,h]
-    
