@@ -1,4 +1,3 @@
-from matplotlib.pyplot import axis
 import numpy as np
 import pandas as pd
 import random
@@ -7,14 +6,15 @@ def one_hot_encode(y):
     return np.transpose(np.eye(10)[y-1])
 
 def sigmoid(x):
-    return 1/(1+np.exp(-x))
+    return 1 / (1+np.exp(-x))
 
 def softmax(x):
-    return np.exp(x)/np.sum(np.exp(x), axis=0)
+    return np.exp(x) / np.sum(np.exp(x), axis=0)
 
-learning_Rate = 0.01
+learning_rate = 0.01
+K = 10
 
-matrix = pd.read_csv('testing.csv', header=None)
+matrix = pd.read_csv('training.csv', header=None)
 #print(matrix.shape)
 R = matrix.iloc[:,0]
 X = matrix.iloc[:,1:] / 255
@@ -23,12 +23,15 @@ X = matrix.iloc[:,1:] / 255
 #print(X.shape)
 
 for H in [5, 10, 25, 50, 75]:
+    v_matrix =[]
+    w_matrix =[]
     for epochs in range(20):
         v_matrix = np.random.uniform(low=-0.01, high=0.01, size=(H+1, 10))
         w_matrix = np.random.uniform(low=-0.01, high=0.01, size=(101,H))
-                
+
         random_list = list(range(X.shape[1]))
         random.shuffle(random_list)
+        
         for instance in random_list:
             x_t = X.iloc[instance,:]
             x_t = np.append(x_t, 1)
@@ -44,29 +47,31 @@ for H in [5, 10, 25, 50, 75]:
 
             print(z_t.shape)
 
-            for h in range(1,H+1):
-                w_h_T  = np.transpose(w_matrix[:,h-1]) 
+            for h in range(H):
+                w_h_T  = np.transpose(w_matrix[:,h]) 
                 z_t[h] = sigmoid(np.dot(w_h_T, x_t))
 
-            os = np.zeros(10)
-            for i in range(10):
+            os = np.zeros(K)
+            for i in range(K):
                 os[i] = np.dot(np.transpose(v_matrix[:,i]), z_t)
             
             y_t = softmax(os)
-            delta_v_matrix = v_matrix
-            delta_w_matrix = w_matrix
 
-            for i in range(10):
-                delta_v_matrix[:,i] = learning_Rate*(y_t[i]-r_t[i])*z_t
+            delta_v_matrix = np.zeros(v_matrix.shape)
+            delta_w_matrix = np.zeros(w_matrix.shape)
+
+            for i in range(K):
+                delta_v_matrix[:,i] = learning_rate*(y_t[i]-r_t[i])*z_t
             
             for h in range(H):
                 summa = 0.0
                 for i in range(10):
                     summa += (r_t[i] - y_t[i])*v_matrix[h,i]
-                delta_w_matrix[:,h] = learning_Rate*z_t[h]*(1-z_t[h])*summa*x_t
+                delta_w_matrix[:,h] = learning_rate*z_t[h]*(1-z_t[h])*summa*x_t
             
-            for i in range(10):
+            for i in range(K):
                 v_matrix[:,i] = v_matrix[:,i] + delta_v_matrix[:,i]
 
             for h in range(H):
                 w_matrix[:,h] = w_matrix[:,h] + delta_w_matrix[:,h]
+    
