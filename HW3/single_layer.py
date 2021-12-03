@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-# Taken from Mahir the TA
+# Taken from Mahir, the TA
 def plot_mean_images(weights):
     # Creating 4*3 subplots
     fig, axes = plt.subplots(4, 3)
@@ -59,7 +59,7 @@ matrix_test = pd.read_csv('testing.csv', header=None)
 R_test = matrix_test.iloc[:,0]
 X_test = matrix_test.iloc[:,1:] / 255
 N_test = matrix_test.shape[0]
-y_matrix_test = np.zeros((N,K))
+y_matrix_test = np.zeros((N_test,K))
 
 accuracy_best = 0
 w_matrix_best = np.zeros((d+1,K))
@@ -97,32 +97,31 @@ for epochs in range(E):
         x_t = np.append(x_t, 1)
         x_t = np.transpose(x_t)
 
-        r_t = one_hot_encode(R.iloc[t])
         o = np.zeros(K, dtype=np.float64)
         for i in range(K):
             o[i] = np.dot(w_matrix[:,i], x_t)
 
         y_matrix[t] = softmax(o)
 
-    for t in range(N):
+    for t in range(N_test):
         x_t_test = X_test.iloc[t,:]
         x_t_test = np.append(x_t_test, 1)
         x_t_test = np.transpose(x_t_test)
 
-        r_t_test = one_hot_encode(R_test.iloc[t])
         o = np.zeros(K, dtype=np.float64)
         for i in range(K):
             o[i] = np.dot(w_matrix[:,i], x_t_test)
 
         y_matrix_test[t] = softmax(o)
 
-        
+
     confusion_matrix_training = np.zeros((K,K))
     confusion_matrix_test = np.zeros((K,K))
 
     for t in range(N):
         confusion_matrix_training[R.iloc[t]-1,  np.argmax(y_matrix[t])] += 1
-        confusion_matrix_test[R.iloc[t]-1, np.argmax(y_matrix_test[t])] += 1
+    for t in range(N_test):
+        confusion_matrix_test[R_test.iloc[t]-1, np.argmax(y_matrix_test[t])] += 1
 
     accuracy_training = accuracy_confusion_matrix(confusion_matrix_training)
     accuracy_test = accuracy_confusion_matrix(confusion_matrix_test)
