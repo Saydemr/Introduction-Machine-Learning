@@ -44,7 +44,7 @@ K = 10
 d = 100
 E = 50
 
-matrix = pd.read_csv('training.csv', header=None)
+matrix = pd.read_csv('training.csv', header=None, skiprows=1)
 
 R = matrix.iloc[:,0]
 X = matrix.iloc[:,1:] / 255
@@ -55,7 +55,7 @@ confusion_matrix_test = np.zeros((K,K))
 w_matrix = np.random.uniform(low=-0.01, high=0.01, size=(d+1,K))
 y_matrix = np.zeros((N,K))
 
-matrix_test = pd.read_csv('testing.csv', header=None)
+matrix_test = pd.read_csv('testing.csv', header=None, skiprows=1)
 R_test = matrix_test.iloc[:,0]
 X_test = matrix_test.iloc[:,1:] / 255
 N_test = matrix_test.shape[0]
