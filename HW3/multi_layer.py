@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import random
 import matplotlib.pyplot as plt
+import sys
 
 # Taken from Mahir, the TA
 def plot_mean_images(weights):
@@ -33,24 +34,31 @@ def accuracy_confusion_matrix(x):
                 correct += x[i][j]
     return correct/total
 
+
 def one_hot_encode(y):
     return np.transpose(np.eye(10)[y-1])
+
 
 def one_hot_decode(y):
     return np.argmax(y) + 1
 
+
 def sigmoid(x):
     return 1. / (1.+ np.exp(-x))
+
 
 def softmax(x):
     e_x = np.exp(x - np.max(x))
     return e_x / e_x.sum()
 
-learning_rate = 0.01
+
+learning_rate = 0.1
 K = 10
 E = 50
 d = 100
 
+if len(sys.argv) == 2:
+    learning_rate = float(sys.argv[1])
 
 matrix = pd.read_csv('training.csv', header=None, skiprows=1)
 R = matrix.iloc[:,0]
@@ -80,11 +88,9 @@ print("H values are: ", *Hs)
 print("Starting the process...\n")
 print("-----------------------------------------------------------------")
 
-
-
 for H in Hs:
     accuracy_best = 0
-    w_matrix_best = np.zeros((d+1,K))
+    w_matrix_best = np.zeros((d+1,H))
     confusion_matrix_training_best = np.zeros((K,K))
     confusion_matrix_test_best     = np.zeros((K,K))
 
@@ -106,8 +112,10 @@ for H in Hs:
 
             for h in range(H):
                 w_h_T  = np.transpose(w_matrix[:,h]) 
-                z[h] = sigmoid(np.dot(w_h_T, x_t))
+                z[h]   = np.dot(w_h_T, x_t)
             
+            z = sigmoid(z)
+                        
             z = np.append(1, z)
             z = np.transpose(z)
 
@@ -130,7 +138,7 @@ for H in Hs:
                 summa = 0.0
                 for i in range(K):
                     summa += (r_t[i] - y_matrix[instance][i])*v_matrix[h,i]
-                delta_w_matrix[:,h] = learning_rate*summa*z[h]*(1-z[h])*x_t
+                delta_w_matrix[:,h] = learning_rate*summa*z[h+1]*(1-z[h+1])*x_t
             
             for i in range(K):
                 v_matrix[:,i] += delta_v_matrix[:,i]
@@ -144,11 +152,12 @@ for H in Hs:
             x_t = np.transpose(x_t)
 
             z = np.zeros(H)
-
             for h in range(H):
                 w_h_T  = np.transpose(w_matrix[:,h]) 
-                z[h] = sigmoid(np.dot(w_h_T, x_t))
+                z[h]   = np.dot(w_h_T, x_t)
             
+            z = sigmoid(z)
+
             z = np.append(1, z)
             z = np.transpose(z)
 
@@ -164,11 +173,12 @@ for H in Hs:
             x_t_test = np.transpose(x_t_test)
 
             z_test = np.zeros(H)
-
             for h in range(H):
                 w_h_T  = np.transpose(w_matrix[:,h]) 
-                z_test[h] = sigmoid(np.dot(w_h_T, x_t_test))
+                z_test[h]   = np.dot(w_h_T, x_t_test)
             
+            z_test = sigmoid(z_test)
+
             z_test = np.append(1, z_test)
             z_test = np.transpose(z_test)
 
@@ -182,9 +192,9 @@ for H in Hs:
         confusion_matrix_test     = np.zeros((K,K))
 
         for t in range(N):
-            confusion_matrix_training[R.iloc[t]-1,  np.argmax(y_matrix[t])] += 1
+            confusion_matrix_training[np.argmax(y_matrix[t])][R.iloc[t]-1] += 1
         for t in range(N_test):
-            confusion_matrix_test[R_test.iloc[t]-1, np.argmax(y_matrix_test[t])] += 1
+            confusion_matrix_test[np.argmax(y_matrix_test[t])][R_test.iloc[t]-1] += 1
 
         accuracy_training = accuracy_confusion_matrix(confusion_matrix_training)
         accuracy_test     = accuracy_confusion_matrix(confusion_matrix_test)
@@ -201,14 +211,15 @@ for H in Hs:
             best_H = H
 
     best_H_accuracies.append(accuracy_best)
-    print("H : ", H, " Best Accuracy: ", accuracy_best)
+    print("H: ", H, " Best Accuracy: ", accuracy_best)
     print("-----------------------------------------------------------------")
-    #print("10 Dimensional Probabilities :", y_matrix)
+    #print("10 Dimensional Probabilities (Training) :", y_matrix)
+    #print("10 Dimensional Probabilities (Testing) :", y_matrix_test)
 
-    """ plt.title("Accuracy vs Epochs for H = " + str(H))
+    plt.title("Accuracy vs Epochs for H = " + str(H))
     plt.plot(training_accuracies, label='Training Accuracy')
     plt.plot(test_accuracies, label='Testing Accuracy')
     plt.legend()
-    plt.show() """
+    plt.show()
 
 print(*best_H_accuracies, sep = "\n")

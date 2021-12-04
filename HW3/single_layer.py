@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import sys
+import random
 
 # Taken from Mahir, the TA
 def plot_mean_images(weights):
@@ -44,6 +45,9 @@ K = 10
 d = 100
 E = 50
 
+if len(sys.argv) == 2:
+    learning_rate = float(sys.argv[1])
+
 matrix = pd.read_csv('training.csv', header=None, skiprows=1)
 
 R = matrix.iloc[:,0]
@@ -66,16 +70,27 @@ w_matrix_best = np.zeros((d+1,K))
 confusion_matrix_training_best = np.zeros((K,K))
 confusion_matrix_test_best = np.zeros((K,K))
 
+
+print("-----------------------------------------------------------------")
+print("K = ", K)
+print("E = ", E)
+print("d = ", d)
+print("N = ", N)
+print("N_test = ", N_test)
+print("Learning rate = ", learning_rate)
+print("Starting the process...\n")
+
+
 training_accuracies = []
 test_accuracies = []
 for epochs in range(E):
-    delta_w = np.zeros(w_matrix.shape)
 
+    delta_w = np.zeros(w_matrix.shape)
+    
     for t in range(N):
         x_t = X.iloc[t,:]
         x_t = np.append(x_t, 1)
         x_t = np.transpose(x_t)
-
 
         o = np.zeros(K)
         for i in range(K):
@@ -103,7 +118,7 @@ for epochs in range(E):
 
         y_matrix[t] = softmax(o)
 
-    for t in range(N_test):
+    for t in range(N):
         x_t_test = X_test.iloc[t,:]
         x_t_test = np.append(x_t_test, 1)
         x_t_test = np.transpose(x_t_test)
@@ -119,7 +134,7 @@ for epochs in range(E):
     confusion_matrix_test = np.zeros((K,K))
 
     for t in range(N):
-        confusion_matrix_training[R.iloc[t]-1,  np.argmax(y_matrix[t])] += 1
+        confusion_matrix_training[R.iloc[t]-1, np.argmax(y_matrix[t])]       += 1
     for t in range(N_test):
         confusion_matrix_test[R_test.iloc[t]-1, np.argmax(y_matrix_test[t])] += 1
 
@@ -136,11 +151,14 @@ for epochs in range(E):
         confusion_matrix_test_best     = confusion_matrix_test
         confusion_matrix_training_best = confusion_matrix_training
 
-print("Confusion Matrix Training:")
-print(*confusion_matrix_training_best, end="\n\n")
+
+print("\nConfusion Matrix Training:")
+print(*confusion_matrix_training_best, sep='\n', end="\n\n")
+
 
 print("Confusion Matrix Test:")
-print(*confusion_matrix_test_best, end="\n\n")
+print(*confusion_matrix_test_best, sep='\n', end="\n\n")
+print("Best Accuracy: ", accuracy_best)
 
 plot_mean_images(w_matrix_best[:-1,:])
 #print("10 Dimensional Probabilities :", y_matrix)
