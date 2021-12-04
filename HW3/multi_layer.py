@@ -1,3 +1,4 @@
+from os import sep
 import numpy as np
 import pandas as pd
 import random
@@ -45,10 +46,11 @@ def softmax(x):
     e_x = np.exp(x - np.max(x))
     return e_x / e_x.sum()
 
-learning_rate = 0.07
+learning_rate = 0.01
 K = 10
 E = 50
 d = 100
+
 
 matrix = pd.read_csv('training.csv', header=None)
 R = matrix.iloc[:,0]
@@ -62,8 +64,25 @@ X_test = matrix_test.iloc[:,1:] / 255
 N_test = matrix_test.shape[0]
 y_matrix_test = np.zeros((N_test,K))
 
-for H in [5, 10, 25, 50, 75]:
-    print("H = ", H)
+Hs              = [5, 10, 25, 50, 75]
+best_H_accuracy = 0
+best_H          = -1
+best_H_accuracies = []
+
+print("K = ", K)
+print("E = ", E)
+print("d = ", d)
+print("N = ", N)
+print("N_test = ", N_test)
+print("Learning rate = ", learning_rate)
+print("H values are: ", *Hs)
+
+print("Starting the process...\n")
+print("-----------------------------------------------------------------")
+
+
+
+for H in Hs:
     accuracy_best = 0
     w_matrix_best = np.zeros((d+1,K))
     confusion_matrix_training_best = np.zeros((K,K))
@@ -137,7 +156,6 @@ for H in [5, 10, 25, 50, 75]:
             for i in range(K):
                 os[i] = np.dot(np.transpose(v_matrix[:,i]), z)
             
-            #print(os)
             y_matrix[instance] = softmax(os)
         
         for instance in random_list:
@@ -157,8 +175,7 @@ for H in [5, 10, 25, 50, 75]:
             os = np.zeros(K)
             for i in range(K):
                 os[i] = np.dot(np.transpose(v_matrix[:,i]), z_test)
-            
-            #print(os)
+
             y_matrix_test[instance] = softmax(os)
 
         confusion_matrix_training = np.zeros((K,K))
@@ -174,18 +191,24 @@ for H in [5, 10, 25, 50, 75]:
         test_accuracies.append(accuracy_test)
         training_accuracies.append(accuracy_training)
 
-        print("Epoch: ", epochs+1, "Training Accuracy: ", accuracy_training, "Testing Accuracy: ", accuracy_test)
+        print("H: ", H," Epoch: ", epochs+1, "Training Accuracy: ", accuracy_training, "Testing Accuracy: ", accuracy_test)
 
         if accuracy_test > accuracy_best:
             accuracy_best = accuracy_test
             w_matrix_best = w_matrix
             confusion_matrix_test_best     = confusion_matrix_test
             confusion_matrix_training_best = confusion_matrix_training
+            best_H = H
 
-    #plot_mean_images(w_matrix_best[:-1,:])
+    best_H_accuracies.append(accuracy_best)
+    print("H : ", H, " Best Accuracy: ", accuracy_best)
+    print("-----------------------------------------------------------------")
     #print("10 Dimensional Probabilities :", y_matrix)
 
+    """ plt.title("Accuracy vs Epochs for H = " + str(H))
     plt.plot(training_accuracies, label='Training Accuracy')
     plt.plot(test_accuracies, label='Testing Accuracy')
     plt.legend()
-    plt.show()
+    plt.show() """
+
+print(*best_H_accuracies, sep = "\n")

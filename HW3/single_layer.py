@@ -39,7 +39,7 @@ def accuracy_confusion_matrix(x):
                 correct += x[i][j]
     return correct/total
 
-learning_rate = 0.07
+learning_rate = 0.1
 K = 10
 d = 100
 E = 50
@@ -124,7 +124,7 @@ for epochs in range(E):
         confusion_matrix_test[R_test.iloc[t]-1, np.argmax(y_matrix_test[t])] += 1
 
     accuracy_training = accuracy_confusion_matrix(confusion_matrix_training)
-    accuracy_test = accuracy_confusion_matrix(confusion_matrix_test)
+    accuracy_test     = accuracy_confusion_matrix(confusion_matrix_test)
     test_accuracies.append(accuracy_test)
     training_accuracies.append(accuracy_training)
 
@@ -133,8 +133,14 @@ for epochs in range(E):
     if accuracy_test > accuracy_best:
         accuracy_best = accuracy_test
         w_matrix_best = w_matrix
-        confusion_matrix_test_best = confusion_matrix_test
+        confusion_matrix_test_best     = confusion_matrix_test
         confusion_matrix_training_best = confusion_matrix_training
+
+print("Confusion Matrix Training:")
+print(*confusion_matrix_training_best, end="\n\n")
+
+print("Confusion Matrix Test:")
+print(*confusion_matrix_test_best, end="\n\n")
 
 plot_mean_images(w_matrix_best[:-1,:])
 #print("10 Dimensional Probabilities :", y_matrix)
