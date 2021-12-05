@@ -37,7 +37,7 @@ def accuracy_confusion_matrix(x):
 
 
 def one_hot_encode(y):
-    return np.transpose(np.eye(10)[y-1])
+    return np.transpose(np.eye(10)[y])
 
 
 def one_hot_decode(y):
@@ -140,6 +140,8 @@ for H in Hs:
                 for i in range(K):
                     summa += (r_t[i] - y_matrix[instance][i])*v_matrix[h,i]
                 delta_w_matrix[:,h] = learning_rate*summa*z[h+1]*(1-z[h+1])*x_t
+                # delta_w_matrix[:,h] = learning_rate*np.dot((r_t - y_matrix[instance]),np.transpose(v_matrix[h,:]))*z[h+1]*(1-z[h+1])*x_t
+                # not sure about this line so I will comment it out
             
             for i in range(K):
                 v_matrix[:,i] += delta_v_matrix[:,i]
@@ -193,9 +195,9 @@ for H in Hs:
         confusion_matrix_test     = np.zeros((K,K))
 
         for t in range(N):
-            confusion_matrix_training[np.argmax(y_matrix[t])][R.iloc[t]-1] += 1
+            confusion_matrix_training[np.argmax(y_matrix[t])][R.iloc[t]] += 1
         for t in range(N_test):
-            confusion_matrix_test[np.argmax(y_matrix_test[t])][R_test.iloc[t]-1] += 1
+            confusion_matrix_test[np.argmax(y_matrix_test[t])][R_test.iloc[t]] += 1
 
         accuracy_training = accuracy_confusion_matrix(confusion_matrix_training)
         accuracy_test     = accuracy_confusion_matrix(confusion_matrix_test)

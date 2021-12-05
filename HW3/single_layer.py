@@ -28,7 +28,7 @@ def softmax(x):
     return e_x / e_x.sum()
    
 def one_hot_encode(y):
-    return np.transpose(np.eye(10)[y-1])
+    return np.transpose(np.eye(10)[y])
 
 def accuracy_confusion_matrix(x):
     correct = 0
@@ -134,9 +134,9 @@ for epochs in range(E):
     confusion_matrix_test = np.zeros((K,K))
 
     for t in range(N):
-        confusion_matrix_training[np.argmax(y_matrix[t]),R.iloc[t]-1]       += 1
+        confusion_matrix_training[np.argmax(y_matrix[t]),R.iloc[t]]       += 1
     for t in range(N_test):
-        confusion_matrix_test[np.argmax(y_matrix_test[t]),R_test.iloc[t]-1] += 1
+        confusion_matrix_test[np.argmax(y_matrix_test[t]),R_test.iloc[t]] += 1
 
     accuracy_training = accuracy_confusion_matrix(confusion_matrix_training)
     accuracy_test     = accuracy_confusion_matrix(confusion_matrix_test)
