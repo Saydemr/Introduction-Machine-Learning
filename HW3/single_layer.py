@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import sys
-import random
+import seaborn as sn
 
 # Taken from Mahir, the TA
 def plot_mean_images(weights):
@@ -134,9 +134,9 @@ for epochs in range(E):
     confusion_matrix_test = np.zeros((K,K))
 
     for t in range(N):
-        confusion_matrix_training[R.iloc[t]-1, np.argmax(y_matrix[t])]       += 1
+        confusion_matrix_training[np.argmax(y_matrix[t]),R.iloc[t]-1]       += 1
     for t in range(N_test):
-        confusion_matrix_test[R_test.iloc[t]-1, np.argmax(y_matrix_test[t])] += 1
+        confusion_matrix_test[np.argmax(y_matrix_test[t]),R_test.iloc[t]-1] += 1
 
     accuracy_training = accuracy_confusion_matrix(confusion_matrix_training)
     accuracy_test     = accuracy_confusion_matrix(confusion_matrix_test)
@@ -152,18 +152,44 @@ for epochs in range(E):
         confusion_matrix_training_best = confusion_matrix_training
 
 
-print("\nConfusion Matrix Training:")
-print(*confusion_matrix_training_best, sep='\n', end="\n\n")
+# print("\nConfusion Matrix Training:")
+# print(*confusion_matrix_training_best, sep='\n', end="\n\n")
 
 
-print("Confusion Matrix Test:")
-print(*confusion_matrix_test_best, sep='\n', end="\n\n")
-print("Best Accuracy: ", accuracy_best)
+# print("Confusion Matrix Test:")
+# print(*confusion_matrix_test_best, sep='\n', end="\n\n")
+# print("Best Accuracy: ", accuracy_best)
 
-plot_mean_images(w_matrix_best[:-1,:])
+df_cm = pd.DataFrame(confusion_matrix_training_best, index = [i for i in range(10)],
+                columns = [i for i in range(10)])
+
+plt.title('Best Confusion Matrix Training')
+sn.heatmap(df_cm, annot=True, cmap="YlGnBu")
+plt.savefig('./graphs/confusion_matrix_training_single.png')
+#plt.show()
+plt.clf()
+
+#print("Confusion Matrix Test H = " + str(H) + " :")
+#print(*confusion_matrix_test_best, sep='\n', end="\n\n")
+
+df_cm = pd.DataFrame(confusion_matrix_test_best, index = [i for i in range(10)],
+                columns = [i for i in range(10)])
+
+plt.title(' Best Confusion Matrix Test')
+sn.heatmap(df_cm, annot=True, cmap="YlGnBu")
+plt.savefig('./graphs/confusion_matrix_test_single_.png')
+#plt.show()
+plt.clf()
+
+#plot_mean_images(w_matrix_best[:-1,:])
 #print("10 Dimensional Probabilities :", y_matrix)
 
+
+plt.title("Accuracy vs Epochs for SLP when Learning Rate = " + str(learning_rate))
 plt.plot(training_accuracies, label='Training Accuracy')
 plt.plot(test_accuracies, label='Testing Accuracy')
-plt.legend()
-plt.show()
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend(loc='lower right')
+plt.savefig("./graphs/Accuracy_vs_Epochs_Single_LR_" + str(learning_rate) + ".png")
+#plt.show()

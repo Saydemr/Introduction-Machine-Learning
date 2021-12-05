@@ -4,6 +4,7 @@ import pandas as pd
 import random
 import matplotlib.pyplot as plt
 import sys
+import seaborn as sn
 
 # Taken from Mahir, the TA
 def plot_mean_images(weights):
@@ -216,10 +217,43 @@ for H in Hs:
     #print("10 Dimensional Probabilities (Training) :", y_matrix)
     #print("10 Dimensional Probabilities (Testing) :", y_matrix_test)
 
-    plt.title("Accuracy vs Epochs for H = " + str(H))
+    #print("\nConfusion Matrix Training H = " + str(H) + " :")
+    #print(*confusion_matrix_training_best, sep='\n', end="\n\n")
+
+    df_cm = pd.DataFrame(confusion_matrix_training_best, index = [i for i in range(10)],
+                  columns = [i for i in range(10)])
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.title('Best Confusion Matrix Training H = ' + str(H))
+    sn.heatmap(df_cm, annot=True, cmap="YlGnBu")
+    plt.savefig('./graphs/confusion_matrix_training_H_' + str(H) + '.png')
+    #plt.show()
+    plt.clf()
+
+
+
+    #print("Confusion Matrix Test H = " + str(H) + " :")
+    #print(*confusion_matrix_test_best, sep='\n', end="\n\n")
+
+    df_cm = pd.DataFrame(confusion_matrix_test_best, index = [i for i in range(10)],
+                  columns = [i for i in range(10)])
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.title(' Best Confusion Matrix Test H = ' + str(H))
+    sn.heatmap(df_cm, annot=True, cmap="YlGnBu")
+    plt.savefig('./graphs/confusion_matrix_test_H_' + str(H) + '.png')
+    #plt.show()
+    plt.clf()
+
+
+    plt.title("Accuracy vs Epochs for H = " + str(H) + " and Learning Rate = " + str(learning_rate))
     plt.plot(training_accuracies, label='Training Accuracy')
     plt.plot(test_accuracies, label='Testing Accuracy')
-    plt.legend()
-    plt.show()
+    plt.xlabel("Epochs")
+    plt.ylabel("Accuracy")
+    plt.legend(loc='lower right')
+    #plt.show()
+    plt.savefig("./graphs/Accuracy_vs_Epochs_H_" + str(H) + "_LR_" + str(learning_rate) + ".png")
+    plt.clf()
 
 print(*best_H_accuracies, sep = "\n")
