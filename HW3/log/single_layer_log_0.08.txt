@@ -1,0 +1,89 @@
+-----------------------------------------------------------------
+K =  10
+E =  50
+d =  100
+N =  1000
+N_test =  1000
+Learning rate =  0.08
+Starting the process...
+
+Epoch:  1 Training Accuracy:  0.233 Testing Accuracy:  0.232
+Epoch:  2 Training Accuracy:  0.277 Testing Accuracy:  0.284
+Epoch:  3 Training Accuracy:  0.426 Testing Accuracy:  0.395
+Epoch:  4 Training Accuracy:  0.529 Testing Accuracy:  0.48
+Epoch:  5 Training Accuracy:  0.536 Testing Accuracy:  0.515
+Epoch:  6 Training Accuracy:  0.629 Testing Accuracy:  0.592
+Epoch:  7 Training Accuracy:  0.457 Testing Accuracy:  0.451
+Epoch:  8 Training Accuracy:  0.612 Testing Accuracy:  0.56
+Epoch:  9 Training Accuracy:  0.64 Testing Accuracy:  0.591
+Epoch:  10 Training Accuracy:  0.73 Testing Accuracy:  0.631
+Epoch:  11 Training Accuracy:  0.747 Testing Accuracy:  0.657
+Epoch:  12 Training Accuracy:  0.809 Testing Accuracy:  0.723
+Epoch:  13 Training Accuracy:  0.8 Testing Accuracy:  0.707
+Epoch:  14 Training Accuracy:  0.846 Testing Accuracy:  0.763
+Epoch:  15 Training Accuracy:  0.833 Testing Accuracy:  0.733
+Epoch:  16 Training Accuracy:  0.861 Testing Accuracy:  0.772
+Epoch:  17 Training Accuracy:  0.86 Testing Accuracy:  0.745
+Epoch:  18 Training Accuracy:  0.879 Testing Accuracy:  0.788
+Epoch:  19 Training Accuracy:  0.876 Testing Accuracy:  0.763
+Epoch:  20 Training Accuracy:  0.884 Testing Accuracy:  0.795
+Epoch:  21 Training Accuracy:  0.884 Testing Accuracy:  0.766
+Epoch:  22 Training Accuracy:  0.894 Testing Accuracy:  0.798
+Epoch:  23 Training Accuracy:  0.906 Testing Accuracy:  0.782
+Epoch:  24 Training Accuracy:  0.9 Testing Accuracy:  0.796
+Epoch:  25 Training Accuracy:  0.914 Testing Accuracy:  0.798
+Epoch:  26 Training Accuracy:  0.905 Testing Accuracy:  0.793
+Epoch:  27 Training Accuracy:  0.921 Testing Accuracy:  0.804
+Epoch:  28 Training Accuracy:  0.905 Testing Accuracy:  0.789
+Epoch:  29 Training Accuracy:  0.912 Testing Accuracy:  0.782
+Epoch:  30 Training Accuracy:  0.908 Testing Accuracy:  0.793
+Epoch:  31 Training Accuracy:  0.909 Testing Accuracy:  0.79
+Epoch:  32 Training Accuracy:  0.905 Testing Accuracy:  0.79
+Epoch:  33 Training Accuracy:  0.901 Testing Accuracy:  0.79
+Epoch:  34 Training Accuracy:  0.893 Testing Accuracy:  0.769
+Epoch:  35 Training Accuracy:  0.91 Testing Accuracy:  0.792
+Epoch:  36 Training Accuracy:  0.894 Testing Accuracy:  0.776
+Epoch:  37 Training Accuracy:  0.892 Testing Accuracy:  0.796
+Epoch:  38 Training Accuracy:  0.898 Testing Accuracy:  0.778
+Epoch:  39 Training Accuracy:  0.904 Testing Accuracy:  0.791
+Epoch:  40 Training Accuracy:  0.912 Testing Accuracy:  0.78
+Epoch:  41 Training Accuracy:  0.912 Testing Accuracy:  0.807
+Epoch:  42 Training Accuracy:  0.923 Testing Accuracy:  0.788
+Epoch:  43 Training Accuracy:  0.94 Testing Accuracy:  0.806
+Epoch:  44 Training Accuracy:  0.931 Testing Accuracy:  0.8
+Epoch:  45 Training Accuracy:  0.936 Testing Accuracy:  0.806
+Epoch:  46 Training Accuracy:  0.945 Testing Accuracy:  0.807
+Epoch:  47 Training Accuracy:  0.928 Testing Accuracy:  0.803
+Epoch:  48 Training Accuracy:  0.93 Testing Accuracy:  0.792
+Epoch:  49 Training Accuracy:  0.916 Testing Accuracy:  0.804
+Epoch:  50 Training Accuracy:  0.911 Testing Accuracy:  0.802
+
+Confusion Matrix Training:
+[96.  0.  0.  1.  1.  0.  1.  3.  0.  0.]
+[ 2. 98.  7.  1.  4.  2.  4.  7.  3.  1.]
+[ 1.  0. 91.  0.  8.  0.  0.  6.  0.  0.]
+[ 0.  0.  0. 96.  3.  0.  0.  0.  4.  0.]
+[ 0.  0.  1.  0. 79.  0.  0.  7.  1.  0.]
+[ 0.  0.  0.  1.  1. 98.  0.  1.  0.  0.]
+[ 0.  0.  0.  0.  0.  0. 94.  1.  1.  0.]
+[ 1.  0.  0.  0.  1.  0.  0. 71.  0.  0.]
+[ 0.  1.  1.  1.  3.  0.  1.  4. 90.  0.]
+[ 0.  1.  0.  0.  0.  0.  0.  0.  1. 99.]
+
+Confusion Matrix Test:
+[91.  0.  0.  1.  1.  0.  0.  2.  0.  0.]
+[ 1. 91. 10.  1.  4.  6. 13.  9.  1.  4.]
+[ 8.  0. 77.  1.  5.  0.  5.  8.  4.  0.]
+[ 0.  0.  1. 79.  5.  1.  2.  6.  2.  0.]
+[ 0.  0.  8.  0. 71.  4.  1.  4.  1.  1.]
+[ 0.  2.  1.  3.  0. 87.  0.  3.  0.  2.]
+[ 0.  1.  0.  0.  7.  0. 76.  1.  5.  0.]
+[ 0.  4.  2.  0.  1.  0.  0. 56.  1.  0.]
+[ 0.  2.  1. 15.  6.  0.  3. 11. 86.  0.]
+[ 0.  0.  0.  0.  0.  2.  0.  0.  0. 93.]
+
+Best Accuracy:  0.807
+./single_layer.py:22: UserWarning: Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.
+  plt.show()
+./single_layer.py:167: UserWarning: Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.
+  plt.show()

@@ -1,0 +1,18 @@
+-----------------------------------------------------------------
+K =  10
+E =  50
+d =  100
+N =  1000
+N_test =  1000
+Learning rate =  0.01
+Starting the process...
+
+Epoch:  1 Training Accuracy:  0.77 Testing Accuracy:  0.667
+Epoch:  2 Training Accuracy:  0.794 Testing Accuracy:  0.692
+Epoch:  3 Training Accuracy:  0.82 Testing Accuracy:  0.738
+Epoch:  4 Training Accuracy:  0.773 Testing Accuracy:  0.639
+Epoch:  5 Training Accuracy:  0.864 Testing Accuracy:  0.787
+Epoch:  6 Training Accuracy:  0.801 Testing Accuracy:  0.723
+Epoch:  7 Training Accuracy:  0.831 Testing Accuracy:  0.739
+Epoch:  8 Training Accuracy:  0.833 Testing Accuracy:  0.707
+Epoch:  9 Training Accuracy:  0.857 Testing Accuracy:  0.754

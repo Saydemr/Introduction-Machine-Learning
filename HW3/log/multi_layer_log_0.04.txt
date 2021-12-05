@@ -1,0 +1,279 @@
+K =  10
+E =  50
+d =  100
+N =  1000
+N_test =  1000
+Learning rate =  0.04
+H values are:  5 10 25 50 75
+Starting the process...
+
+-----------------------------------------------------------------
+H:  5  Epoch:  1 Training Accuracy:  0.1 Testing Accuracy:  0.1
+H:  5  Epoch:  2 Training Accuracy:  0.101 Testing Accuracy:  0.105
+H:  5  Epoch:  3 Training Accuracy:  0.162 Testing Accuracy:  0.142
+H:  5  Epoch:  4 Training Accuracy:  0.209 Testing Accuracy:  0.198
+H:  5  Epoch:  5 Training Accuracy:  0.204 Testing Accuracy:  0.206
+H:  5  Epoch:  6 Training Accuracy:  0.19 Testing Accuracy:  0.195
+H:  5  Epoch:  7 Training Accuracy:  0.192 Testing Accuracy:  0.171
+H:  5  Epoch:  8 Training Accuracy:  0.195 Testing Accuracy:  0.186
+H:  5  Epoch:  9 Training Accuracy:  0.18 Testing Accuracy:  0.153
+H:  5  Epoch:  10 Training Accuracy:  0.178 Testing Accuracy:  0.143
+H:  5  Epoch:  11 Training Accuracy:  0.184 Testing Accuracy:  0.182
+H:  5  Epoch:  12 Training Accuracy:  0.184 Testing Accuracy:  0.161
+H:  5  Epoch:  13 Training Accuracy:  0.168 Testing Accuracy:  0.146
+H:  5  Epoch:  14 Training Accuracy:  0.187 Testing Accuracy:  0.191
+H:  5  Epoch:  15 Training Accuracy:  0.179 Testing Accuracy:  0.161
+H:  5  Epoch:  16 Training Accuracy:  0.223 Testing Accuracy:  0.189
+H:  5  Epoch:  17 Training Accuracy:  0.206 Testing Accuracy:  0.199
+H:  5  Epoch:  18 Training Accuracy:  0.173 Testing Accuracy:  0.163
+H:  5  Epoch:  19 Training Accuracy:  0.212 Testing Accuracy:  0.207
+H:  5  Epoch:  20 Training Accuracy:  0.192 Testing Accuracy:  0.168
+H:  5  Epoch:  21 Training Accuracy:  0.222 Testing Accuracy:  0.216
+H:  5  Epoch:  22 Training Accuracy:  0.191 Testing Accuracy:  0.178
+H:  5  Epoch:  23 Training Accuracy:  0.176 Testing Accuracy:  0.15
+H:  5  Epoch:  24 Training Accuracy:  0.184 Testing Accuracy:  0.177
+H:  5  Epoch:  25 Training Accuracy:  0.173 Testing Accuracy:  0.172
+H:  5  Epoch:  26 Training Accuracy:  0.202 Testing Accuracy:  0.197
+H:  5  Epoch:  27 Training Accuracy:  0.189 Testing Accuracy:  0.161
+H:  5  Epoch:  28 Training Accuracy:  0.182 Testing Accuracy:  0.185
+H:  5  Epoch:  29 Training Accuracy:  0.193 Testing Accuracy:  0.18
+H:  5  Epoch:  30 Training Accuracy:  0.174 Testing Accuracy:  0.171
+H:  5  Epoch:  31 Training Accuracy:  0.188 Testing Accuracy:  0.187
+H:  5  Epoch:  32 Training Accuracy:  0.175 Testing Accuracy:  0.165
+H:  5  Epoch:  33 Training Accuracy:  0.199 Testing Accuracy:  0.199
+H:  5  Epoch:  34 Training Accuracy:  0.204 Testing Accuracy:  0.201
+H:  5  Epoch:  35 Training Accuracy:  0.173 Testing Accuracy:  0.16
+H:  5  Epoch:  36 Training Accuracy:  0.199 Testing Accuracy:  0.195
+H:  5  Epoch:  37 Training Accuracy:  0.188 Testing Accuracy:  0.182
+H:  5  Epoch:  38 Training Accuracy:  0.161 Testing Accuracy:  0.167
+H:  5  Epoch:  39 Training Accuracy:  0.127 Testing Accuracy:  0.09
+H:  5  Epoch:  40 Training Accuracy:  0.174 Testing Accuracy:  0.17
+H:  5  Epoch:  41 Training Accuracy:  0.213 Testing Accuracy:  0.226
+H:  5  Epoch:  42 Training Accuracy:  0.213 Testing Accuracy:  0.212
+H:  5  Epoch:  43 Training Accuracy:  0.212 Testing Accuracy:  0.218
+H:  5  Epoch:  44 Training Accuracy:  0.191 Testing Accuracy:  0.189
+H:  5  Epoch:  45 Training Accuracy:  0.136 Testing Accuracy:  0.113
+H:  5  Epoch:  46 Training Accuracy:  0.157 Testing Accuracy:  0.168
+H:  5  Epoch:  47 Training Accuracy:  0.194 Testing Accuracy:  0.174
+H:  5  Epoch:  48 Training Accuracy:  0.211 Testing Accuracy:  0.22
+H:  5  Epoch:  49 Training Accuracy:  0.226 Testing Accuracy:  0.227
+H:  5  Epoch:  50 Training Accuracy:  0.2 Testing Accuracy:  0.185
+H:  5  Best Accuracy:  0.227
+-----------------------------------------------------------------
+./multi_layer.py:223: UserWarning: Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.
+  plt.show()
+H:  10  Epoch:  1 Training Accuracy:  0.12 Testing Accuracy:  0.115
+H:  10  Epoch:  2 Training Accuracy:  0.216 Testing Accuracy:  0.216
+H:  10  Epoch:  3 Training Accuracy:  0.349 Testing Accuracy:  0.323
+H:  10  Epoch:  4 Training Accuracy:  0.404 Testing Accuracy:  0.394
+H:  10  Epoch:  5 Training Accuracy:  0.426 Testing Accuracy:  0.406
+H:  10  Epoch:  6 Training Accuracy:  0.47 Testing Accuracy:  0.442
+H:  10  Epoch:  7 Training Accuracy:  0.458 Testing Accuracy:  0.426
+H:  10  Epoch:  8 Training Accuracy:  0.481 Testing Accuracy:  0.432
+H:  10  Epoch:  9 Training Accuracy:  0.512 Testing Accuracy:  0.491
+H:  10  Epoch:  10 Training Accuracy:  0.499 Testing Accuracy:  0.46
+H:  10  Epoch:  11 Training Accuracy:  0.455 Testing Accuracy:  0.433
+H:  10  Epoch:  12 Training Accuracy:  0.483 Testing Accuracy:  0.46
+H:  10  Epoch:  13 Training Accuracy:  0.503 Testing Accuracy:  0.456
+H:  10  Epoch:  14 Training Accuracy:  0.492 Testing Accuracy:  0.467
+H:  10  Epoch:  15 Training Accuracy:  0.533 Testing Accuracy:  0.485
+H:  10  Epoch:  16 Training Accuracy:  0.524 Testing Accuracy:  0.515
+H:  10  Epoch:  17 Training Accuracy:  0.513 Testing Accuracy:  0.483
+H:  10  Epoch:  18 Training Accuracy:  0.511 Testing Accuracy:  0.482
+H:  10  Epoch:  19 Training Accuracy:  0.495 Testing Accuracy:  0.455
+H:  10  Epoch:  20 Training Accuracy:  0.485 Testing Accuracy:  0.471
+H:  10  Epoch:  21 Training Accuracy:  0.57 Testing Accuracy:  0.519
+H:  10  Epoch:  22 Training Accuracy:  0.507 Testing Accuracy:  0.49
+H:  10  Epoch:  23 Training Accuracy:  0.551 Testing Accuracy:  0.513
+H:  10  Epoch:  24 Training Accuracy:  0.525 Testing Accuracy:  0.469
+H:  10  Epoch:  25 Training Accuracy:  0.494 Testing Accuracy:  0.48
+./multi_layer.py:47: RuntimeWarning: overflow encountered in exp
+  return 1. / (1.+ np.exp(-x))
+H:  10  Epoch:  26 Training Accuracy:  0.485 Testing Accuracy:  0.458
+H:  10  Epoch:  27 Training Accuracy:  0.5 Testing Accuracy:  0.478
+H:  10  Epoch:  28 Training Accuracy:  0.499 Testing Accuracy:  0.463
+H:  10  Epoch:  29 Training Accuracy:  0.449 Testing Accuracy:  0.416
+H:  10  Epoch:  30 Training Accuracy:  0.486 Testing Accuracy:  0.448
+H:  10  Epoch:  31 Training Accuracy:  0.512 Testing Accuracy:  0.459
+H:  10  Epoch:  32 Training Accuracy:  0.515 Testing Accuracy:  0.455
+H:  10  Epoch:  33 Training Accuracy:  0.474 Testing Accuracy:  0.44
+H:  10  Epoch:  34 Training Accuracy:  0.495 Testing Accuracy:  0.445
+H:  10  Epoch:  35 Training Accuracy:  0.491 Testing Accuracy:  0.435
+H:  10  Epoch:  36 Training Accuracy:  0.507 Testing Accuracy:  0.485
+H:  10  Epoch:  37 Training Accuracy:  0.493 Testing Accuracy:  0.454
+H:  10  Epoch:  38 Training Accuracy:  0.491 Testing Accuracy:  0.454
+H:  10  Epoch:  39 Training Accuracy:  0.487 Testing Accuracy:  0.443
+H:  10  Epoch:  40 Training Accuracy:  0.404 Testing Accuracy:  0.369
+H:  10  Epoch:  41 Training Accuracy:  0.481 Testing Accuracy:  0.444
+H:  10  Epoch:  42 Training Accuracy:  0.385 Testing Accuracy:  0.341
+H:  10  Epoch:  43 Training Accuracy:  0.403 Testing Accuracy:  0.375
+H:  10  Epoch:  44 Training Accuracy:  0.396 Testing Accuracy:  0.379
+H:  10  Epoch:  45 Training Accuracy:  0.409 Testing Accuracy:  0.368
+H:  10  Epoch:  46 Training Accuracy:  0.411 Testing Accuracy:  0.397
+H:  10  Epoch:  47 Training Accuracy:  0.491 Testing Accuracy:  0.419
+H:  10  Epoch:  48 Training Accuracy:  0.421 Testing Accuracy:  0.416
+H:  10  Epoch:  49 Training Accuracy:  0.519 Testing Accuracy:  0.47
+H:  10  Epoch:  50 Training Accuracy:  0.496 Testing Accuracy:  0.473
+H:  10  Best Accuracy:  0.519
+-----------------------------------------------------------------
+H:  25  Epoch:  1 Training Accuracy:  0.1 Testing Accuracy:  0.1
+H:  25  Epoch:  2 Training Accuracy:  0.188 Testing Accuracy:  0.161
+H:  25  Epoch:  3 Training Accuracy:  0.392 Testing Accuracy:  0.381
+H:  25  Epoch:  4 Training Accuracy:  0.527 Testing Accuracy:  0.492
+H:  25  Epoch:  5 Training Accuracy:  0.441 Testing Accuracy:  0.43
+H:  25  Epoch:  6 Training Accuracy:  0.478 Testing Accuracy:  0.473
+H:  25  Epoch:  7 Training Accuracy:  0.405 Testing Accuracy:  0.39
+H:  25  Epoch:  8 Training Accuracy:  0.432 Testing Accuracy:  0.418
+H:  25  Epoch:  9 Training Accuracy:  0.484 Testing Accuracy:  0.448
+H:  25  Epoch:  10 Training Accuracy:  0.393 Testing Accuracy:  0.376
+H:  25  Epoch:  11 Training Accuracy:  0.494 Testing Accuracy:  0.461
+H:  25  Epoch:  12 Training Accuracy:  0.435 Testing Accuracy:  0.422
+H:  25  Epoch:  13 Training Accuracy:  0.518 Testing Accuracy:  0.491
+H:  25  Epoch:  14 Training Accuracy:  0.486 Testing Accuracy:  0.461
+H:  25  Epoch:  15 Training Accuracy:  0.557 Testing Accuracy:  0.505
+H:  25  Epoch:  16 Training Accuracy:  0.497 Testing Accuracy:  0.465
+H:  25  Epoch:  17 Training Accuracy:  0.444 Testing Accuracy:  0.412
+H:  25  Epoch:  18 Training Accuracy:  0.453 Testing Accuracy:  0.422
+H:  25  Epoch:  19 Training Accuracy:  0.516 Testing Accuracy:  0.502
+H:  25  Epoch:  20 Training Accuracy:  0.503 Testing Accuracy:  0.481
+H:  25  Epoch:  21 Training Accuracy:  0.535 Testing Accuracy:  0.511
+H:  25  Epoch:  22 Training Accuracy:  0.553 Testing Accuracy:  0.48
+H:  25  Epoch:  23 Training Accuracy:  0.602 Testing Accuracy:  0.55
+H:  25  Epoch:  24 Training Accuracy:  0.505 Testing Accuracy:  0.487
+H:  25  Epoch:  25 Training Accuracy:  0.546 Testing Accuracy:  0.514
+H:  25  Epoch:  26 Training Accuracy:  0.525 Testing Accuracy:  0.494
+H:  25  Epoch:  27 Training Accuracy:  0.517 Testing Accuracy:  0.502
+H:  25  Epoch:  28 Training Accuracy:  0.53 Testing Accuracy:  0.491
+H:  25  Epoch:  29 Training Accuracy:  0.546 Testing Accuracy:  0.495
+H:  25  Epoch:  30 Training Accuracy:  0.634 Testing Accuracy:  0.556
+H:  25  Epoch:  31 Training Accuracy:  0.552 Testing Accuracy:  0.505
+H:  25  Epoch:  32 Training Accuracy:  0.538 Testing Accuracy:  0.492
+H:  25  Epoch:  33 Training Accuracy:  0.667 Testing Accuracy:  0.588
+H:  25  Epoch:  34 Training Accuracy:  0.609 Testing Accuracy:  0.548
+H:  25  Epoch:  35 Training Accuracy:  0.51 Testing Accuracy:  0.466
+H:  25  Epoch:  36 Training Accuracy:  0.637 Testing Accuracy:  0.571
+H:  25  Epoch:  37 Training Accuracy:  0.561 Testing Accuracy:  0.543
+H:  25  Epoch:  38 Training Accuracy:  0.582 Testing Accuracy:  0.543
+H:  25  Epoch:  39 Training Accuracy:  0.663 Testing Accuracy:  0.584
+H:  25  Epoch:  40 Training Accuracy:  0.614 Testing Accuracy:  0.563
+H:  25  Epoch:  41 Training Accuracy:  0.547 Testing Accuracy:  0.506
+H:  25  Epoch:  42 Training Accuracy:  0.57 Testing Accuracy:  0.522
+H:  25  Epoch:  43 Training Accuracy:  0.587 Testing Accuracy:  0.535
+H:  25  Epoch:  44 Training Accuracy:  0.566 Testing Accuracy:  0.536
+H:  25  Epoch:  45 Training Accuracy:  0.649 Testing Accuracy:  0.572
+H:  25  Epoch:  46 Training Accuracy:  0.641 Testing Accuracy:  0.569
+H:  25  Epoch:  47 Training Accuracy:  0.569 Testing Accuracy:  0.557
+H:  25  Epoch:  48 Training Accuracy:  0.584 Testing Accuracy:  0.528
+H:  25  Epoch:  49 Training Accuracy:  0.592 Testing Accuracy:  0.537
+H:  25  Epoch:  50 Training Accuracy:  0.593 Testing Accuracy:  0.544
+H:  25  Best Accuracy:  0.588
+-----------------------------------------------------------------
+H:  50  Epoch:  1 Training Accuracy:  0.1 Testing Accuracy:  0.1
+H:  50  Epoch:  2 Training Accuracy:  0.172 Testing Accuracy:  0.149
+H:  50  Epoch:  3 Training Accuracy:  0.421 Testing Accuracy:  0.405
+H:  50  Epoch:  4 Training Accuracy:  0.647 Testing Accuracy:  0.584
+H:  50  Epoch:  5 Training Accuracy:  0.685 Testing Accuracy:  0.61
+H:  50  Epoch:  6 Training Accuracy:  0.694 Testing Accuracy:  0.638
+H:  50  Epoch:  7 Training Accuracy:  0.742 Testing Accuracy:  0.661
+H:  50  Epoch:  8 Training Accuracy:  0.511 Testing Accuracy:  0.474
+H:  50  Epoch:  9 Training Accuracy:  0.661 Testing Accuracy:  0.59
+H:  50  Epoch:  10 Training Accuracy:  0.649 Testing Accuracy:  0.585
+H:  50  Epoch:  11 Training Accuracy:  0.68 Testing Accuracy:  0.59
+H:  50  Epoch:  12 Training Accuracy:  0.709 Testing Accuracy:  0.648
+H:  50  Epoch:  13 Training Accuracy:  0.761 Testing Accuracy:  0.666
+H:  50  Epoch:  14 Training Accuracy:  0.698 Testing Accuracy:  0.621
+H:  50  Epoch:  15 Training Accuracy:  0.689 Testing Accuracy:  0.605
+H:  50  Epoch:  16 Training Accuracy:  0.717 Testing Accuracy:  0.631
+H:  50  Epoch:  17 Training Accuracy:  0.753 Testing Accuracy:  0.673
+H:  50  Epoch:  18 Training Accuracy:  0.768 Testing Accuracy:  0.71
+H:  50  Epoch:  19 Training Accuracy:  0.784 Testing Accuracy:  0.711
+H:  50  Epoch:  20 Training Accuracy:  0.752 Testing Accuracy:  0.679
+H:  50  Epoch:  21 Training Accuracy:  0.749 Testing Accuracy:  0.683
+H:  50  Epoch:  22 Training Accuracy:  0.735 Testing Accuracy:  0.665
+H:  50  Epoch:  23 Training Accuracy:  0.743 Testing Accuracy:  0.679
+H:  50  Epoch:  24 Training Accuracy:  0.792 Testing Accuracy:  0.704
+H:  50  Epoch:  25 Training Accuracy:  0.679 Testing Accuracy:  0.628
+H:  50  Epoch:  26 Training Accuracy:  0.794 Testing Accuracy:  0.714
+H:  50  Epoch:  27 Training Accuracy:  0.772 Testing Accuracy:  0.69
+H:  50  Epoch:  28 Training Accuracy:  0.778 Testing Accuracy:  0.698
+H:  50  Epoch:  29 Training Accuracy:  0.783 Testing Accuracy:  0.694
+H:  50  Epoch:  30 Training Accuracy:  0.802 Testing Accuracy:  0.688
+H:  50  Epoch:  31 Training Accuracy:  0.757 Testing Accuracy:  0.701
+H:  50  Epoch:  32 Training Accuracy:  0.788 Testing Accuracy:  0.694
+H:  50  Epoch:  33 Training Accuracy:  0.786 Testing Accuracy:  0.724
+H:  50  Epoch:  34 Training Accuracy:  0.783 Testing Accuracy:  0.707
+H:  50  Epoch:  35 Training Accuracy:  0.758 Testing Accuracy:  0.687
+H:  50  Epoch:  36 Training Accuracy:  0.786 Testing Accuracy:  0.715
+H:  50  Epoch:  37 Training Accuracy:  0.793 Testing Accuracy:  0.709
+H:  50  Epoch:  38 Training Accuracy:  0.798 Testing Accuracy:  0.696
+H:  50  Epoch:  39 Training Accuracy:  0.779 Testing Accuracy:  0.691
+H:  50  Epoch:  40 Training Accuracy:  0.795 Testing Accuracy:  0.705
+H:  50  Epoch:  41 Training Accuracy:  0.78 Testing Accuracy:  0.657
+H:  50  Epoch:  42 Training Accuracy:  0.778 Testing Accuracy:  0.699
+H:  50  Epoch:  43 Training Accuracy:  0.783 Testing Accuracy:  0.688
+H:  50  Epoch:  44 Training Accuracy:  0.8 Testing Accuracy:  0.706
+H:  50  Epoch:  45 Training Accuracy:  0.773 Testing Accuracy:  0.675
+H:  50  Epoch:  46 Training Accuracy:  0.767 Testing Accuracy:  0.679
+H:  50  Epoch:  47 Training Accuracy:  0.747 Testing Accuracy:  0.654
+H:  50  Epoch:  48 Training Accuracy:  0.77 Testing Accuracy:  0.687
+H:  50  Epoch:  49 Training Accuracy:  0.788 Testing Accuracy:  0.697
+H:  50  Epoch:  50 Training Accuracy:  0.799 Testing Accuracy:  0.68
+H:  50  Best Accuracy:  0.724
+-----------------------------------------------------------------
+H:  75  Epoch:  1 Training Accuracy:  0.1 Testing Accuracy:  0.1
+H:  75  Epoch:  2 Training Accuracy:  0.242 Testing Accuracy:  0.212
+H:  75  Epoch:  3 Training Accuracy:  0.508 Testing Accuracy:  0.472
+H:  75  Epoch:  4 Training Accuracy:  0.669 Testing Accuracy:  0.584
+H:  75  Epoch:  5 Training Accuracy:  0.705 Testing Accuracy:  0.617
+H:  75  Epoch:  6 Training Accuracy:  0.782 Testing Accuracy:  0.706
+H:  75  Epoch:  7 Training Accuracy:  0.806 Testing Accuracy:  0.714
+H:  75  Epoch:  8 Training Accuracy:  0.733 Testing Accuracy:  0.677
+H:  75  Epoch:  9 Training Accuracy:  0.779 Testing Accuracy:  0.699
+H:  75  Epoch:  10 Training Accuracy:  0.75 Testing Accuracy:  0.682
+H:  75  Epoch:  11 Training Accuracy:  0.796 Testing Accuracy:  0.65
+H:  75  Epoch:  12 Training Accuracy:  0.799 Testing Accuracy:  0.702
+H:  75  Epoch:  13 Training Accuracy:  0.674 Testing Accuracy:  0.622
+H:  75  Epoch:  14 Training Accuracy:  0.725 Testing Accuracy:  0.657
+H:  75  Epoch:  15 Training Accuracy:  0.737 Testing Accuracy:  0.715
+H:  75  Epoch:  16 Training Accuracy:  0.697 Testing Accuracy:  0.599
+H:  75  Epoch:  17 Training Accuracy:  0.804 Testing Accuracy:  0.719
+H:  75  Epoch:  18 Training Accuracy:  0.739 Testing Accuracy:  0.673
+H:  75  Epoch:  19 Training Accuracy:  0.738 Testing Accuracy:  0.676
+H:  75  Epoch:  20 Training Accuracy:  0.754 Testing Accuracy:  0.696
+H:  75  Epoch:  21 Training Accuracy:  0.727 Testing Accuracy:  0.658
+H:  75  Epoch:  22 Training Accuracy:  0.773 Testing Accuracy:  0.669
+H:  75  Epoch:  23 Training Accuracy:  0.778 Testing Accuracy:  0.686
+H:  75  Epoch:  24 Training Accuracy:  0.693 Testing Accuracy:  0.635
+H:  75  Epoch:  25 Training Accuracy:  0.787 Testing Accuracy:  0.72
+H:  75  Epoch:  26 Training Accuracy:  0.799 Testing Accuracy:  0.714
+H:  75  Epoch:  27 Training Accuracy:  0.777 Testing Accuracy:  0.7
+H:  75  Epoch:  28 Training Accuracy:  0.792 Testing Accuracy:  0.716
+H:  75  Epoch:  29 Training Accuracy:  0.81 Testing Accuracy:  0.721
+H:  75  Epoch:  30 Training Accuracy:  0.766 Testing Accuracy:  0.656
+H:  75  Epoch:  31 Training Accuracy:  0.812 Testing Accuracy:  0.726
+H:  75  Epoch:  32 Training Accuracy:  0.778 Testing Accuracy:  0.684
+H:  75  Epoch:  33 Training Accuracy:  0.807 Testing Accuracy:  0.716
+H:  75  Epoch:  34 Training Accuracy:  0.77 Testing Accuracy:  0.693
+H:  75  Epoch:  35 Training Accuracy:  0.81 Testing Accuracy:  0.71
+H:  75  Epoch:  36 Training Accuracy:  0.809 Testing Accuracy:  0.717
+H:  75  Epoch:  37 Training Accuracy:  0.786 Testing Accuracy:  0.699
+H:  75  Epoch:  38 Training Accuracy:  0.803 Testing Accuracy:  0.717
+H:  75  Epoch:  39 Training Accuracy:  0.805 Testing Accuracy:  0.715
+H:  75  Epoch:  40 Training Accuracy:  0.783 Testing Accuracy:  0.712
+H:  75  Epoch:  41 Training Accuracy:  0.801 Testing Accuracy:  0.709
+H:  75  Epoch:  42 Training Accuracy:  0.806 Testing Accuracy:  0.723
+H:  75  Epoch:  43 Training Accuracy:  0.775 Testing Accuracy:  0.688
+H:  75  Epoch:  44 Training Accuracy:  0.83 Testing Accuracy:  0.735
+H:  75  Epoch:  45 Training Accuracy:  0.833 Testing Accuracy:  0.753
+H:  75  Epoch:  46 Training Accuracy:  0.845 Testing Accuracy:  0.749
+H:  75  Epoch:  47 Training Accuracy:  0.797 Testing Accuracy:  0.708
+H:  75  Epoch:  48 Training Accuracy:  0.847 Testing Accuracy:  0.757
+H:  75  Epoch:  49 Training Accuracy:  0.829 Testing Accuracy:  0.742
+H:  75  Epoch:  50 Training Accuracy:  0.84 Testing Accuracy:  0.743
+H:  75  Best Accuracy:  0.757
+-----------------------------------------------------------------
+0.227
+0.519
+0.588
+0.724
+0.757

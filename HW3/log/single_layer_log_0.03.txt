@@ -1,0 +1,15 @@
+-----------------------------------------------------------------
+K =  10
+E =  50
+d =  100
+N =  1000
+N_test =  1000
+Learning rate =  0.03
+Starting the process...
+
+Traceback (most recent call last):
+  File "./single_layer.py", line 90, in <module>
+    random.shuffle(random_list)
+  File "/usr/lib/python3.8/random.py", line 307, in shuffle
+    x[i], x[j] = x[j], x[i]
+TypeError: 'range' object does not support item assignment
